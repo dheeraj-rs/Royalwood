@@ -1,6 +1,16 @@
+
+// import SwipeableNavbar from "./components/Drage/Side"
+import HomeNavbar from "./components/homeNavigation/HomeNavbar"
+import HomeSearchbar from "./components/homeSearchbar/HomeSearchbar"
+
 function App() {
+
   return (
-   <h1>RoyalWood</h1>
+    <>
+   <HomeNavbar/>
+   <HomeSearchbar/>
+   {/* <SwipeableNavbar/> */}
+   </>
   )
 }
 
