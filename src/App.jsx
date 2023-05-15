@@ -1,16 +1,13 @@
-
-// import SwipeableNavbar from "./components/Drage/Side"
-import HomeNavbar from "./components/homeNavigation/HomeNavbar"
-import HomeSearchbar from "./components/homeSearchbar/HomeSearchbar"
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import UserRouter from './routes/UserRouter'
 
 function App() {
-
   return (
-    <>
-   <HomeNavbar/>
-   <HomeSearchbar/>
-   {/* <SwipeableNavbar/> */}
-   </>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/*" element={<UserRouter />} />
+    </Routes>
+  </BrowserRouter>
   )
 }
 

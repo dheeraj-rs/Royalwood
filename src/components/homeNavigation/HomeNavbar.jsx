@@ -48,12 +48,12 @@ function HomeNavbar() {
   };
 
   return (
-    <nav className="bg-[#1f0c42]" >
-      <div className="max-w-screen-2xl flex flex-wrap items-center justify-between  lg:justify-center md:gap-10\">
+    <nav className="bg-gradient-to-r from-teal-200 to-teal-700 lg:flex lg:justify-center lg:items-center" >
+      <div className="max-w-screen-2xl flex flex-wrap items-center justify-between  lg:justify-center md:gap-10 ">
         <div className="flex order-1 p-2 lg:py-2 text-white">
           <div className="flex lg:hidden">
             <button className="p-2">
-              <IoMdMenu className="w-8 h-8" onClick={handlemenuToggle} />
+              <IoMdMenu className="w-8 h-8 text-slate-600" onClick={handlemenuToggle} />
             </button>
           </div>
           <a href="" className="max-w-max flex flex-col justify-center">
@@ -61,11 +61,11 @@ function HomeNavbar() {
             <span className="text-sm font-acorn font-semibold tracking-wider leading-3 pl-1">Industry</span>
           </a>
         </div>
-        <div className={`${isVisible ? "left-0" : "left-[-1023px]"} left-[-${navbarPosition}px] w-full absolute top-0 duration-[1.5s] ease-in-out text-white lg:hidden z-50 cursor-pointer`}>
+        <div className={`${isVisible ? "left-0" : "left-[-1023px]"} left-[-${navbarPosition}px] h-screen w-full fixed top-0 duration-[1.5s] ease-in-out text-white lg:hidden z-50 cursor-pointer`}>
           <div className="flex justify-end w-full h-screen bg-[#00000082]" onClick={handlemenuToggle} ><IoMdClose className="w-10 h-10" /></div>
           <ul className={` flex flex-col items-center justify-center font-medium  p-5 gap-10 text-xl w-3/4 h-full bg-[#000000e2]  absolute top-0  left-0`}
           onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
-            <li><a href="" className="">Home</a></li>
+            <li><a to="/*" className="">Home</a></li>
             <li><a href="" className="">Store</a></li>
             <li><a href="" className="cursor-wait">About</a></li>
           </ul>
