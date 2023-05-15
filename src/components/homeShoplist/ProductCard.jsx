@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function HomeproductCard() {
+function ProductCard() {
 const [products, setProducts] = useState([]);
 
 useEffect(() => {
@@ -36,4 +36,4 @@ useEffect(() => {
   )
 }
 
-export default HomeproductCard
+export default ProductCard

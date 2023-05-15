@@ -1,5 +1,5 @@
 import React from "react";
-import HomeNavbar from "../../components/homeNavigation/HomeNavbar";
+import HomeNavbar from "../../components/homeNavbar/HomeNavbar";
 import HomeSearchbar from "../../components/homeSearchbar/HomeSearchbar";
 import HomeCatagory from "../../components/HomeCatagory/HomeCatagory";
 import HomeBanner from "../../components/homeBanner/HomeBanner";

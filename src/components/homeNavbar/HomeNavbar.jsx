@@ -2,6 +2,7 @@ import { useState } from "react";
 import { IoMdCart, IoMdClose, IoMdMenu } from "react-icons/io";
 import { HiChevronRight, HiOutlineUser } from "react-icons/hi";
 import { BsSearch } from "react-icons/bs";
+import { Link } from "react-router-dom";
 function HomeNavbar() {
 
   const [isVisible, setIsVisible] = useState(false);
@@ -71,7 +72,9 @@ function HomeNavbar() {
           </ul>
         </div>
         <div className="hidden p-2 relative lg:flex lg:order-2">
+        <Link to="/search">
           <input type="text" className="min-w-[400px] p-2 pr-10 text-sm rounded-sm border bg-gray-50 text-gray-900 border-gray-300" placeholder="Search..." />
+          </Link>
           <div className="absolute inset-y-0 right-0 flex items-center pr-5 pointer-events-none">
             <BsSearch className="w-4 h-4 text-gray-500" />
           </div>
