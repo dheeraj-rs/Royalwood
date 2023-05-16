@@ -1,76 +1,84 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useLayoutEffect } from "react";
+import axios from "axios";
+import { FaShopify } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { related, selectItem, titleName } from "../../redux/Features/searchProducts";
+import { HiOutlineArrowSmLeft } from "react-icons/hi";
 
 const SearchNavbar = () => {
-  const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const { titles } = useSelector((state) => state.search);
+  const { selectedProduct } = useSelector((state) => state.search);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      if (query.trim() !== '') {
+      if (titles.trim() !== "") {
         try {
-          const response = await axios.get('https://fakestoreapi.com/products');
+          const response = await axios.get("https://fakestoreapi.com/products");
           const filteredSuggestions = response.data.filter((product) =>
-            product.title.toLowerCase().includes(query.toLowerCase())
+            product.title.toLowerCase().includes(titles.toLowerCase())
           );
           setSuggestions(filteredSuggestions);
         } catch (error) {
-          console.error('Error fetching suggestions:', error);
+          console.error("Error fetching suggestions:", error);
         }
       } else {
         setSuggestions([]);
       }
     };
+
     const timeoutId = setTimeout(fetchSuggestions, 500);
     return () => clearTimeout(timeoutId);
-  }, [query]);
+  }, [titles]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (suggestions.length > 0 && !selectedProduct) {
-      setSelectedProduct(suggestions[0]);
+      dispatch(selectItem(suggestions[0]));
     }
-  }, [suggestions, selectedProduct]);
+    dispatch(related(suggestions));
+  }, [suggestions, selectedProduct, dispatch]);
 
-  const handleInputChange = (event) => {
-    setQuery(event.target.value);
-  };
-
-  const handleSuggestionClick = (product) => {
-    setSelectedProduct(product);
+  const handleTitleChange = (event) => {
+    const value = event.target.value;
+    dispatch(titleName(value));
+    dispatch(selectItem(null));
   };
 
   return (
     <div>
-      <div className="w-full h-16 bg-green-500 flex justify-center p-2">
+      <div className="w-full h-16 flex justify-center items-center gap-2 bg-gradient-to-r from-teal-200 to-teal-700 ">
+        <div className="">
+          <Link to="/">
+            <HiOutlineArrowSmLeft className="w-10 h-10" />
+          </Link>
+        </div>
         <input
-          className="w-[95%] p-2"
+          className="w-[80%] p-2"
           type="text"
           placeholder="Search products..."
-          value={query}
-          onChange={handleInputChange}
+          value={titles}
+          onChange={handleTitleChange}
         />
-      </div>
-
-      <div className="w-full h-auto">
-        {selectedProduct && (
-          <div className="bg-cyan-400 w-full h-auto">
-            <img src={selectedProduct.image} alt="" className="w-40 h-30" />
-            <h2>{selectedProduct.title}</h2>
-            <p>Price: {selectedProduct.price}</p>
-          </div>
-        )}
+        <div className="">
+          <Link to="/shop">
+            <FaShopify className="w-10 h-10" />
+          </Link>
+        </div>
       </div>
       <ul className="w-full flex flex-col items-start p-2 mt-10">
         {suggestions.map((product) => (
-          <li
-            className="flex justify-center items-center"
-            key={product.id}
-            onClick={() => handleSuggestionClick(product)}
-          >
-            <img className="w-5 h-5" src={product.image} alt="" />
-            {product.title}
-          </li>
+          <Link to="/shop" key={product.id}>
+            <li
+              className="flex justify-center items-center"
+              onClick={() => dispatch(selectItem(product))}
+            >
+              <img className="w-5 h-5" src={product.image} alt="" />
+              {product.title}
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

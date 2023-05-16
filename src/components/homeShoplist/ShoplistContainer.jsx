@@ -1,12 +1,11 @@
-import HomeproductCard from "./ProductCard"
+import HomeproductCard from "./ProductCard";
 
 function ShoplistContainer() {
-
-    return (
-        <div className="w-full h-full flex-wrap flex justify-center lg:justify-evenly pt-5">
-            <HomeproductCard/>
-        </div>
-    )
+  return (
+    <div className="w-full h-full flex-wrap flex justify-center lg:justify-evenly pt-5">
+      <HomeproductCard />
+    </div>
+  );
 }
 
-export default ShoplistContainer
+export default ShoplistContainer;

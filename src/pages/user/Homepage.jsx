@@ -6,11 +6,13 @@ import HomeBanner from "../../components/homeBanner/HomeBanner";
 import HomeShoplist from "../../components/homeShoplist/HomeShoplist";
 import HomeService from "../../components/homeService/HomeService";
 import HomeCopyright from "../../components/homeCopyright/HomeCopyright";
+import HomeSidebar from "../../components/homeSidebar/HomeSidebar";
 
 function Homepage() {
   return (
     <React.Fragment>
       <HomeNavbar />
+      <HomeSidebar />
       <HomeSearchbar />
       <HomeCatagory />
       <HomeBanner />
@@ -22,4 +24,3 @@ function Homepage() {
 }
 
 export default Homepage;
-

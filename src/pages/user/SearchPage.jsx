@@ -1,13 +1,10 @@
-import SearchNav from "../../components/SearchNav/SearchNav"
-// import Shoplist from "../../components/Shoplist/Shoplist"
-
+import SearchNav from "../../components/SearchNav/SearchNav";
 function SearchPage() {
   return (
     <div>
-        <SearchNav/>
-        {/* <Shoplist/> */}
+      <SearchNav />
     </div>
-  )
+  );
 }
 
-export default SearchPage
+export default SearchPage;

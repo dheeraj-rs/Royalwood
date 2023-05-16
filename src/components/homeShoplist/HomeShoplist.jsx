@@ -1,5 +1,5 @@
-import ShoplistContainer from "./ShoplistContainer"
-import Shoplistnav from "./Shoplistnav"
+import ShoplistContainer from "./ShoplistContainer";
+import Shoplistnav from "./Shoplistnav";
 
 function HomeShoplist() {
   return (
@@ -7,7 +7,7 @@ function HomeShoplist() {
       <Shoplistnav />
       <ShoplistContainer />
     </div>
-  )
+  );
 }
 
-export default HomeShoplist
+export default HomeShoplist;
