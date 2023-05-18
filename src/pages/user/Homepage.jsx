@@ -7,6 +7,7 @@ import HomeShoplist from "../../components/homeShoplist/HomeShoplist";
 import HomeService from "../../components/homeService/HomeService";
 import HomeCopyright from "../../components/homeCopyright/HomeCopyright";
 import HomeSidebar from "../../components/homeSidebar/HomeSidebar";
+import BottomNavbar from "../../components/bottomNavbar/BottomNavbar";
 
 function Homepage() {
   return (
@@ -19,6 +20,7 @@ function Homepage() {
       <HomeShoplist />
       <HomeService />
       <HomeCopyright />
+      <BottomNavbar/>
     </React.Fragment>
   );
 }

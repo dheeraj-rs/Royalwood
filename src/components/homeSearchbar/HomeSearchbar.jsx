@@ -1,20 +1,25 @@
-import { BsSearch } from "react-icons/bs";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import {IoSearchSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import filterdata from "../../firebase/Config";
 function HomeSearchbar() {
+  console.log('hhhhh',filterdata);
   return (
-    <div className="bg-gradient-to-r from-teal-200 to-teal-700">
-      <div className="relative p-2 sm:block lg:hidden">
-        <Link to="/search">
+    <div className="w-full h-16 flex bg-gradient-to-r from-teal-200 to-teal-700">
+      
+      <div className="w-full relative px-4 sm:block lg:hidden flex flex-row items-center gap-2 ">
+        <Link to="/search" className="w-full">
           <input
             type="text"
-            className="w-full p-2  pl-10 text-sm rounded-sm border text-gray-900 bg-gray-50 border-gray-300"
-            placeholder="Search..."
+            className="w-full py-3 pl-10 text-sm rounded-md border text-gray-900  border-gray-300 placeholder:text-base placeholder:text-[#6e6e6e]"
+            placeholder="Search furnitures..."
           />
         </Link>
-        <div className="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
-          <BsSearch className="w-4 h-4 text-gray-500" />
+        <AiOutlineShoppingCart className="w-8 h-8" />
+        <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+          <IoSearchSharp className="w-6 h-6 text-black" />
         </div>
-      </div>
+      </div>    
     </div>
   );
 }

@@ -7,17 +7,14 @@ function HomeSidebar() {
   const dispatch = useDispatch();
   const { sidebarState } = useSelector((state) => state.sidebar);
   useEffect(() => {
-    console.log(
-      "🚀 ~ file: HomeSidebar.jsx:9 ~ HomeSidebar ~ sidebarState:",
-      sidebarState
-    );
+    console.log(" sidebarState:",sidebarState );
   }, [sidebarState]);
 
   return (
     <div
       className={`${
         sidebarState ? "left-0" : "left-[-1023px]"
-      } h-screen w-full fixed top-0 duration-[1.5s] ease-in-out text-white lg:hidden z-50 cursor-pointer`}
+      } h-screen w-full fixed top-0 duration-[1s] ease-in text-white lg:hidden z-50 cursor-pointer`}
     >
       <div
         className="flex justify-end w-full h-screen bg-[#00000082]"

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
+    "firebase": "^9.22.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
@@ -31,5 +32,18 @@
     "postcss": "^8.4.23",
     "tailwindcss": "^3.3.2",
     "vite": "^4.3.2"
-  }
+  },
+  "main": "postcss.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dheeraj-rs/Royalwood.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dheeraj-rs/Royalwood/issues"
+  },
+  "homepage": "https://github.com/dheeraj-rs/Royalwood#readme",
+  "description": ""
 }

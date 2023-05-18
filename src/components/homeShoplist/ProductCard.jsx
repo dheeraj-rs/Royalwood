@@ -25,7 +25,7 @@ const dispatch = useDispatch()
       {products.map((items) => (
         <div
           key={items.id}
-          className=" w-[183px] h-[175px] flex-col flex justify-center items-center mb-10"
+          className=" w-[183px] h-[175px] flex-col flex justify-center items-center mb-16"
         >
           <div className=" w-[85%] h-[73%] bg-[#9292921f] shadow-lg">
             <img

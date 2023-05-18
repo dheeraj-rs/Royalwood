@@ -13,7 +13,7 @@ function CatagoryCard() {
           <img src={items.image} alt="img" className="w-full h-full" />
         </div>
         <div className="w-full h-[20%] text-sm flex items-center justify-center">
-          <p>{items.title.slice(0, 5)}</p>
+          <p>{items.category.slice(0, 5)}</p>
         </div>
       </div>
     </div>
