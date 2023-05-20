@@ -1,20 +1,16 @@
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleoff } from "../../redux/Features/usersidebarToggle";
-import { useEffect } from "react";
 
 function HomeSidebar() {
   const dispatch = useDispatch();
   const { sidebarState } = useSelector((state) => state.sidebar);
-  useEffect(() => {
-    console.log(" sidebarState:",sidebarState );
-  }, [sidebarState]);
 
   return (
     <div
       className={`${
         sidebarState ? "left-0" : "left-[-1023px]"
-      } h-screen w-full fixed top-0 duration-[1s] ease-in text-white lg:hidden z-50 cursor-pointer`}
+      } h-screen w-full fixed top-0 duration-[1s] ease-in text-white  z-50 cursor-pointer lg:hidden`}
     >
       <div
         className="flex justify-end w-full h-screen bg-[#00000082]"

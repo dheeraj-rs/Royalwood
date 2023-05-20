@@ -1,8 +1,9 @@
-import SearchNav from "../../components/SearchNav/SearchNav";
+import SearchMobilePanel from "../../components/SearchPanel/SearchMobilePanel";
+
 function SearchPage() {
   return (
     <div>
-      <SearchNav />
+      <SearchMobilePanel/>
     </div>
   );
 }

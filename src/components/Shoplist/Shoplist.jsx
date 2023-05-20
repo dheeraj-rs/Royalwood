@@ -12,7 +12,7 @@ function Shoplist() {
   console.log("relateditems:", relateditems)
   const dispatch = useDispatch();
   return (
-    <div className="w-screen h-screen flex flex-col">
+    <div className="w-full h-screen flex flex-col">
      <div className="w-full h-16 flex justify-center items-center gap-3 bg-gradient-to-r from-teal-200 to-teal-700 fixed top-0 left-0 ">
         <div className="">
           <Link to="/">

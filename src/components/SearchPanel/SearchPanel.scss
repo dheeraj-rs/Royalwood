@@ -1,0 +1,48 @@
+$minWidth: 150px;
+@for $i from 1 through 10 {
+  .search-min-#{$i} {
+    min-width: $minWidth + $i * 100px;
+  }
+}
+$maxWidth: 100px;
+@for $i from 1 through 10 {
+  .search-max-#{$i} {
+    min-width: $minWidth + $i * 200px;
+  }
+}
+ 
+@media screen and (min-width:1208px) {
+    .banner-serach-bar {
+            width: 360px;
+        }
+}
+
+
+
+$resolution: 320px;
+$width: 230px;
+
+@while $resolution <= 639px {
+  @media (min-width: $resolution) {
+    .container {
+      width: $width;
+    }
+  }
+
+  $resolution: $resolution + 5px;
+  $width: $width + 5px;
+}
+
+// $startResolution: 300px;
+// $increment: 5px;
+// $maxResolution: 600px;
+
+// @for $resolution from $startResolution through $maxResolution {
+//   @media screen and (min-width: $resolution) {
+//     .container {
+//       width: 230px;
+//     }
+//   }
+  
+//   $resolution: $resolution + $increment;
+// }

@@ -1,26 +1,28 @@
 import React from "react";
-import HomeNavbar from "../../components/homeNavbar/HomeNavbar";
-import HomeSearchbar from "../../components/homeSearchbar/HomeSearchbar";
 import HomeCatagory from "../../components/HomeCatagory/HomeCatagory";
 import HomeBanner from "../../components/homeBanner/HomeBanner";
 import HomeShoplist from "../../components/homeShoplist/HomeShoplist";
 import HomeService from "../../components/homeService/HomeService";
 import HomeCopyright from "../../components/homeCopyright/HomeCopyright";
 import HomeSidebar from "../../components/homeSidebar/HomeSidebar";
-import BottomNavbar from "../../components/bottomNavbar/BottomNavbar";
+import UserHeader from "../../components/UserHeader/UserHeader";
+import UserFooter from "../../components/UserFooter/UserFooter";
+import UserSearchbutton from "../../components/UserSearchbutton/UserSearchbutton";
+
 
 function Homepage() {
   return (
     <React.Fragment>
-      <HomeNavbar />
+      <UserHeader/>
+      <UserSearchbutton/>
+      
       <HomeSidebar />
-      <HomeSearchbar />
       <HomeCatagory />
       <HomeBanner />
       <HomeShoplist />
       <HomeService />
       <HomeCopyright />
-      <BottomNavbar/>
+      <UserFooter/>
     </React.Fragment>
   );
 }

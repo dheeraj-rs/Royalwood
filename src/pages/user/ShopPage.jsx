@@ -1,10 +1,10 @@
 import React from 'react'
-import Shoplist from '../../components/Shoplist/Shoplist'
+import UserShoplist from '../../components/UserShoplist/UserShoplist'
 
 function ShopPage() {
   return (
     <div>
-        <Shoplist/>
+        <UserShoplist/>
     </div>
   )
 }
