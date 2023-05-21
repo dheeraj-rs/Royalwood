@@ -1,11 +1,14 @@
 import React from 'react'
 import UserFooter from '../../components/UserFooter/UserFooter'
+import UserMenubar from '../../components/UserMenubar/UserMenubar'
 
 function FvtPage() {
   return (
-    <div>FvtPage
-        <UserFooter/>
-    </div>
+    <>
+      fvt
+      <UserMenubar />
+      <UserFooter />
+    </>
   )
 }
 

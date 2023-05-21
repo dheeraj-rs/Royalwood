@@ -1,0 +1,13 @@
+.hover:hover{
+
+    color: lawngreen;
+    ul{
+        display: block;
+            // background-color:white;
+            color: black;
+        }
+
+        ul li:hover{
+            display: block;
+        }
+    }

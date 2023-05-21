@@ -4,25 +4,26 @@ import HomeBanner from "../../components/homeBanner/HomeBanner";
 import HomeShoplist from "../../components/homeShoplist/HomeShoplist";
 import HomeService from "../../components/homeService/HomeService";
 import HomeCopyright from "../../components/homeCopyright/HomeCopyright";
-import HomeSidebar from "../../components/homeSidebar/HomeSidebar";
 import UserHeader from "../../components/UserHeader/UserHeader";
 import UserFooter from "../../components/UserFooter/UserFooter";
 import UserSearchbutton from "../../components/UserSearchbutton/UserSearchbutton";
+import UserMenubar from "../../components/UserMenubar/UserMenubar";
 
 
 function Homepage() {
   return (
     <React.Fragment>
-      <UserHeader/>
-      <UserSearchbutton/>
-      
-      <HomeSidebar />
+      <UserHeader />
+      <UserSearchbutton />
+      <UserMenubar />
+
       <HomeCatagory />
       <HomeBanner />
       <HomeShoplist />
       <HomeService />
       <HomeCopyright />
-      <UserFooter/>
+
+      <UserFooter />
     </React.Fragment>
   );
 }

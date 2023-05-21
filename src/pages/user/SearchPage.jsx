@@ -1,10 +1,12 @@
 import SearchMobilePanel from "../../components/SearchPanel/SearchMobilePanel";
+import UserMenubar from "../../components/UserMenubar/UserMenubar";
 
 function SearchPage() {
   return (
-    <div>
-      <SearchMobilePanel/>
-    </div>
+    <>
+      <UserMenubar />
+      <SearchMobilePanel />
+    </>
   );
 }
 

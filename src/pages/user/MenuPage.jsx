@@ -1,11 +1,13 @@
 import React from 'react'
 import UserFooter from '../../components/UserFooter/UserFooter'
+import UserMenubar from '../../components/UserMenubar/UserMenubar'
 
 function MenuPage() {
   return (
-    <div className='w-screen h-screen bg-slate-500'>MenuPage
-    <UserFooter/>
-    </div>
+    <>
+      <UserMenubar />
+      <UserFooter />
+    </>
   )
 }
 
