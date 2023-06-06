@@ -1,12 +1,12 @@
 import React from 'react'
-import UserFooter from '../../components/UserFooter/UserFooter'
-import UserMenubar from '../../components/UserMenubar/UserMenubar'
+import SideMenubar from '../../components/SideMenubar/SideMenubar'
+import MainFooter from '../../components/MainFooter/MainFooter'
 
 function MenuPage() {
   return (
     <>
-      <UserMenubar />
-      <UserFooter />
+      <SideMenubar/>
+      <MainFooter />
     </>
   )
 }

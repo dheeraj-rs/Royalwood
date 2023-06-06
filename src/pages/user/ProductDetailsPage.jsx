@@ -1,10 +1,10 @@
 import React from 'react'
-import UserProductDetails from '../../components/UserProductDetails.jsx/UserProductDetails'
+import ProductDetails from '../../components/ProductDetails.jsx/ProductDetails'
 
 function ProductDetailsPage() {
   return (
     <>
-      <UserProductDetails />
+      <ProductDetails />
     </>
   )
 }

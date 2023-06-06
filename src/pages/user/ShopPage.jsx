@@ -1,12 +1,14 @@
 import React from 'react'
-import UserShoplist from '../../components/UserShoplist/UserShoplist'
-import UserMenubar from '../../components/UserMenubar/UserMenubar'
+import Shop from '../../components/Shop/Shop'
+import SideMenubar from '../../components/SideMenubar/SideMenubar'
+import MainFooter from '../../components/MainFooter/MainFooter'
 
 function ShopPage() {
   return (
     <>
-      <UserMenubar />
-      <UserShoplist />
+      <Shop />
+      <SideMenubar />
+      <MainFooter />
     </>
   )
 }

@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Acorn';
-    src: url(./fonts/Acorn-SemiBold-1.ttf);
+  font-family: "Acorn";
+  src: url(./fonts/Acorn-SemiBold-1.ttf);
 }
 
-::-webkit-scrollbar{
-    display:none;
+::-webkit-scrollbar {
+  display: none;
 }

@@ -1,6 +1,6 @@
 function HomeService() {
   return (
-    <div className=" w-full h-auto flex p-3 gap-3 flex-col sm:flex-row py-10">
+    <div className=" w-full h-auto  p-3 gap-3 flex-col sm:flex-row py-10 hidden lg:flex bg-blue-gray-50">
       <div className=" w-full  flex">
         <div className=" w-1/2 h-full flex flex-col items-center ">
           <div className="w-5/6">

@@ -1,13 +1,14 @@
 import React from 'react'
-import UserFooter from '../../components/UserFooter/UserFooter'
-import UserMenubar from '../../components/UserMenubar/UserMenubar'
+import SideMenubar from '../../components/SideMenubar/SideMenubar'
+import Userfav from '../../components/Userfav/Userfav'
+import MainFooter from '../../components/MainFooter/MainFooter'
 
 function FvtPage() {
   return (
     <>
-      fvt
-      <UserMenubar />
-      <UserFooter />
+      <Userfav/>
+      <SideMenubar />
+      <MainFooter />
     </>
   )
 }

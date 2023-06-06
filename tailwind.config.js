@@ -9,6 +9,10 @@ export default {
     extend: {},
     fontFamily: {
       'acorn':['Acorn']
+    },
+    backgroundImage: {
+      'hero-pattern': "url('/img/hero-pattern.svg')",
+      'footer-texture': "url('/img/footer-texture.png')",
     }
   },
   plugins: [],
@@ -21,8 +25,19 @@ module.exports = withMT({
   "path-to-your-node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}",
   "path-to-your-node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        'bgimg': "url('/sr c/assets/bannner.avif')",
+        'cate': "url('/src/assets/cabinet.png')",
+      },
+    },
   },
   plugins: [],
 });
+
+// module.exports = {
+//   darkMode: ['class', '[data-mode="dark"]'],
+//   // ...
+// }
+
 

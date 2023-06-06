@@ -1,29 +1,34 @@
 import React from "react";
-import HomeCatagory from "../../components/HomeCatagory/HomeCatagory";
-import HomeBanner from "../../components/homeBanner/HomeBanner";
-import HomeShoplist from "../../components/homeShoplist/HomeShoplist";
-import HomeService from "../../components/homeService/HomeService";
-import HomeCopyright from "../../components/homeCopyright/HomeCopyright";
-import UserHeader from "../../components/UserHeader/UserHeader";
-import UserFooter from "../../components/UserFooter/UserFooter";
-import UserSearchbutton from "../../components/UserSearchbutton/UserSearchbutton";
-import UserMenubar from "../../components/UserMenubar/UserMenubar";
-
+import HomeHeadNav from "../../components/HomeHeadNav/HomeHeadNav";
+import HomeCarousel from "../../components/HomeCarousel/HomeCarousel";
+import HomeBanner from "../../components/HomeBanner/HomeBanner";
+import HomeJustforyouCard from "../../components/HomeJustforyouCard/HomeJustforyouCard3";
+import HomeCategorieCard from "../../components/HomeCategorieCard/HomeCategorieCard";
+import SideMenubar from "../../components/SideMenubar/SideMenubar";
+import HomeService from "../../components/HomeService/HomeService";
+import HomeCopyright from "../../components/HomeCopyright/HomeCopyright";
+import LoginForm from "../../components/LoginForm/LoginForm";
+import HomeOutdoorCard from "../../components/HomeOutdoorCard/HomeOutdoorCard";
+import HomeIndoreCard from "../../components/HomeIndoreCard/HomeIndoreCard";
+import HomeBanner2 from "../../components/HomeBanner/HomeBanner2";
+import MainFooter from "../../components/MainFooter/MainFooter";
 
 function Homepage() {
   return (
     <React.Fragment>
-      <UserHeader />
-      <UserSearchbutton />
-      <UserMenubar />
-
-      <HomeCatagory />
-      <HomeBanner />
-      <HomeShoplist />
-      <HomeService />
+      <LoginForm/>
+      <HomeHeadNav/>
+      <HomeCarousel/> {/* lg show  */}
+      <HomeIndoreCard/> {/* lg hidden  */}
+      <HomeBanner/> {/* lg hidden  */}
+      <HomeOutdoorCard/> {/* lg hidden  */}
+      <HomeCategorieCard/> {/* lg show */}
+      <HomeBanner2/>
+      <HomeJustforyouCard/>
+      <HomeService /> {/*lg show */}
       <HomeCopyright />
-
-      <UserFooter />
+      <MainFooter /> {/* md hiddem*/}
+      <SideMenubar/> 
     </React.Fragment>
   );
 }

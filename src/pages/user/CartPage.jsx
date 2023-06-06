@@ -1,14 +1,14 @@
 import React from 'react'
-import UserFooter from '../../components/UserFooter/UserFooter'
 import UserCart from '../../components/UserCart/UserCart'
-import UserMenubar from '../../components/UserMenubar/UserMenubar'
+import SideMenubar from '../../components/SideMenubar/SideMenubar'
+import MainFooter from '../../components/MainFooter/MainFooter'
 
 function CartPage() {
   return (
     <>
       <UserCart />
-      <UserMenubar />
-      <UserFooter />
+      <SideMenubar/>
+      <MainFooter />
     </>
   )
 }

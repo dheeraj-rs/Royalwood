@@ -1,11 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import usersidebarToggle from "../Features/usersidebarToggle";
 import searchProducts from "../Features/searchProducts";
+import userToggle from "../Features/userToggle";
 
 export const store = configureStore({
   reducer: {
-    sidebar: usersidebarToggle,
+    sidebar: userToggle,
     search: searchProducts,
-    
   },
 });
