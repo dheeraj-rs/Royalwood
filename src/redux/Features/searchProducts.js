@@ -5,6 +5,7 @@ const initialState = {
   relateditems: [],
   products: [],
   categorie: [],
+  selectedcategorie:[],
 };
 
 const searchProducts = createSlice({
@@ -27,10 +28,12 @@ const searchProducts = createSlice({
     Categorie: (state, action) => {
       state.categorie = action.payload;
     },
+    Selectedcategorie: (state, action) => {
+      state.selectedcategorie = action.payload;
+    },
   },
 });
 
-export const { titleName, selectItem, related, ApiData, Categorie } =
-  searchProducts.actions;
+export const { titleName, selectItem, related, ApiData, Categorie, Selectedcategorie } = searchProducts.actions;
   
 export default searchProducts.reducer;

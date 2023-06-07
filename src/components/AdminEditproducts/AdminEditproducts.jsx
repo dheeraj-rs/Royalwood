@@ -28,6 +28,7 @@ function AdminEditproducts() {
         Window: false,
         Door: false,
         Other: false,
+        staircase:false,
     });
 
     const getChannelList = async () => {
@@ -112,6 +113,7 @@ function AdminEditproducts() {
                 Swingchair: false,
                 Window: false,
                 Door: false,
+                staircase:false,
                 Other: false,
             });
 
@@ -150,6 +152,7 @@ function AdminEditproducts() {
             Window: false,
             Door: false,
             Other: false,
+            staircase:false,
         });
     };
 

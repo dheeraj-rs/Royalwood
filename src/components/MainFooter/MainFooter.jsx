@@ -12,7 +12,7 @@ function MainFooter() {
   return (
     <>
       <div className="w-full h-14 md:hidden "></div>
-      <div className="fixed bottom-0 w-full h-14 p-3 md:hidden dark:bg-black dark:text-white backdrop-blur-sm">
+      <div className="fixed bottom-0 w-full h-14 p-3 md:hidden dark:bg-black dark:text-white backdrop-blur-sm z-50">
         <nav className="flex">
 
           {/* Home btn bottom*/}

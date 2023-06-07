@@ -19,8 +19,7 @@ function AdminHome() {
                 return <AdminAddproducts />
 
             case 'editproduct':
-                return <AdminEditproducts />  // return <AdminEditproducts />
-               
+                return <AdminEditproducts />  // return <AdminEditproducts /> 
 
             case 'customers':
                 return <AdminCustomers />
@@ -31,7 +30,7 @@ function AdminHome() {
             case 'dashboard':
                 return <AdminDashboard />
 
-            default: return  <AdminDashboard />
+            default: return  <AdminEditproducts />
         }
 
     }

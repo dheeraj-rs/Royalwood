@@ -1,5 +1,5 @@
 import React from 'react'
-import { ApiData, selectItem } from "../../redux/Features/searchProducts";
+import { Selectedcategorie, selectItem } from "../../redux/Features/searchProducts";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
@@ -13,21 +13,27 @@ import { RiHeart2Line } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 function Shop() {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const collectionRef = collection(db, "furnitures");
+  const { selectedcategorie } = useSelector((state) => state.search);
+
+  const [rotate, setRotate] = useState(false);
   const [data, setData] = useState([]);
-  const { categorie } = useSelector((state) => state.search);
-  console.log("🚀  categorie:", categorie)
+  const[selectdata,setSelectdata] = useState ([]);
+  const [active,setActive]=useState([])
 
   const getChannelList = async () => {
     try {
       const querySnapshot = await getDocs(collectionRef);
-      const filterdata = querySnapshot.docs.map((doc) => ({
+      const firebasedata = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      setData(filterdata);
-      dispatch(ApiData(data))
+      setData(firebasedata)
+      const filterdata = firebasedata.filter(item => item.categories.includes(selectedcategorie));
+      setSelectdata(filterdata);
+
     } catch (error) {
       console.error("Error getting documents:", error);
     }
@@ -37,14 +43,25 @@ function Shop() {
     getChannelList();
   }, []);
 
-  const navigate = useNavigate()
-  const [rotate, setRotate] = useState(false);
+  useEffect(()=>{
+    if (selectdata == '') {
+      setActive(data)     
+    }else{
+      setActive(selectdata)
+    }
+  },[data])
+
+  const handleback = () => {
+    dispatch(Selectedcategorie(''))
+    navigate(-1);
+  }
+  
 
   return (
     <div className="w-full h-auto overflow-hidden relative z-50 ">
       <div className="w-full h-14 flex justify-center items-center px-3 gap-2 " >
         {/* back button  */}
-        <BiArrowBack className="w-8 h-8" onClick={() => navigate(-1)} />
+        <BiArrowBack className="w-8 h-8" onClick={handleback } />
         {/* search container  */}
         <div className="w-full flex items-center pt-1">
           <SearchPanel />
@@ -68,15 +85,15 @@ function Shop() {
       </div>
       <div className="w-full">
         {/* shop lists  */}
-        <div className={`${rotate ? "w-[85%]" : "w-full"} duration-500 h-full flex flex-wrap justify-center lg:justify-evenly pt-5`}>
-          {data.map((items) => (
+        <div className={`${rotate ? "lg:w-[85%]" : "w-full"} duration-500 h-full flex flex-wrap justify-center gap-y-5 lg:justify-evenly pt-5`}>
+          {active.map((items) => (
             <Link to="/productpage" key={items.id}>
               <div className="w-[140px] relative lg:w-[390px] lg:h-auto border rounded-md shadow-lg cursor-pointer mx-2 my-4 lg:my-0 lg:flex" onClick={() => dispatch(selectItem(items))}>
                 <div className="w-full lg:h-[180px] lg:w-[40%]  overflow-hidden rounded-t-md p-3 ">
                   <img
                     src={items.image}
                     alt="img"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                   <MdFavoriteBorder className="w-6 h-6 absolute top-2 right-2 shadow-lg rounded-full p-1" />
                 </div>

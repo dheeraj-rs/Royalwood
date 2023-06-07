@@ -1,11 +1,35 @@
-import React, { useState } from 'react'
+import { collection, getDocs } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react'
 import { BiArrowBack } from 'react-icons/bi';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../../firebase/firebase';
 
 function Gallery() {
   const navigate = useNavigate()
   const [rotate, setRotate] = useState(false);
+  const collectionRef = collection(db, "furnitures");
+  const [data, setData] = useState([]);
+
+  const getChannelList = async () => {
+    try {
+      const querySnapshot = await getDocs(collectionRef);
+      const firebasedata = querySnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setData(firebasedata)
+
+    } catch (error) {
+      console.error("Error getting documents:", error);
+    }
+  };
+
+  useEffect(() => {
+    getChannelList();
+  }, []);
+
+
 
   return (
     <>
@@ -23,54 +47,16 @@ function Gallery() {
       <div className='p-4 flex flex-col gap-5 w-screen overflow-hidden relative'>
 
         <div className={`grid grid-cols-2 md:grid-cols-4 gap-4 overflow-hidden mt-24 ${rotate ? "lg:w-[80%]" : "w-full"} duration-500 `}>
-          <div className="grid gap-4">
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="" />
+          {data.map((item) => (
+            <div key={item.id} className="rounded-lg overflow-hidden border flex items-center shadow-lg p-3">
+              <img className="h-auto w-full object-cover" src={item.image} alt="" />
             </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="" />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="" />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="" />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="" />
-            </div>
-            <div>
-              <img className="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="" />
-            </div>
-          </div>
+          ))}
+
         </div>
 
         {/* category select button */}
-        <div className={`${rotate ? "right-4" : "-right-80"} top-20  z-40 w-40 lg:w-64 duration-500 backdrop-blur-lg flex flex-col gap-4 justify-center p-5 fixed right-0`}>
+        <div className={`${rotate ? "right-3" : "-right-96"} top-20  z-40 w-40 lg:w-64 duration-500 backdrop-blur-lg flex flex-col gap-4 justify-center p-5 fixed`}>
           <ul>
             <h1 className="text-xl font-bold">Type</h1>
             <li className="flex items-center gap-2">

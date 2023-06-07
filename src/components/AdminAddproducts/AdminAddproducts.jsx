@@ -24,6 +24,7 @@ function AdminAddproducts() {
     Bed: false,
     Sofa: false,
     Bedroom: false,
+    staircase:false,
     Dining: false,
     Table: false,
     Chair: false,
@@ -230,6 +231,17 @@ function AdminAddproducts() {
                   onChange={handleCheck}
                 />
                 Chair
+              </label>
+              <label htmlFor="productCategorystaircase" className="mr-4 flex items-center">
+                <input
+                  type="checkbox"
+                  id="productCategorystaircase"
+                  name="staircase"
+                  className="mr-2 h-4 w-4 text-indigo-600"
+                  checked={categories.staircase}
+                  onChange={handleCheck}
+                />
+                staircase
               </label>
               <label htmlFor="productCategoryDining" className="mr-4 flex items-center">
                 <input

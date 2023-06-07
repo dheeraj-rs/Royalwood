@@ -29,6 +29,7 @@ module.exports = withMT({
       backgroundImage:{
         'bgimg': "url('/sr c/assets/bannner.avif')",
         'cate': "url('/src/assets/cabinet.png')",
+        'indoorimg': "url('/src/assets/indoor1.jpg')",
       },
     },
   },
