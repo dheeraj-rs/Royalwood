@@ -28,8 +28,8 @@ function HomeCarousel() {
   }, []);
 
   return (
-    <div className="px-2 py-4 hidden lg:block  bg-blue-gray-100 lg:bg-white">
-      <article className="relative w-full h-[60vh] flex flex-shrink-0 overflow-hidden shadow-2xl">
+    <div className="px-2 py-4 hidden lg:block  bg-blue-gray-100 lg:bg-[#eeeeee]">
+      <article className="relative w-full h-[60vh] flex flex-shrink-0 overflow-hidden ">
         <div className="rounded-full text-white absolute top-5 right-5 text-sm px-2 text-center z-10 ">
           <span>{currentIndex}</span>/
           <span>{images.length}</span>

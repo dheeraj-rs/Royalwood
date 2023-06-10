@@ -5,14 +5,14 @@ import CartPage from "../pages/user/CartPage";
 import FvtPage from "../pages/user/FvtPage";
 import MenuPage from "../pages/user/MenuPage";
 import ProductDetailsPage from "../pages/user/ProductDetailsPage";
-import LoginForm from "../components/LoginForm/LoginForm";
 import GalleryPage from "../pages/user/GalleryPage";
+import LoginPage from "../pages/user/LoginPage";
 
 function UserRouter() {
   return (
     <Routes>
       <Route element={<Homepage />} path="/" />
-      <Route element={<LoginForm />} path="/login" />
+      <Route element={<LoginPage />} path="/login" />
       <Route element={<ShopPage />} path="/shop" />
       <Route element={<GalleryPage />} path="/gallery" />
       <Route element={<CartPage />} path="/cart" />

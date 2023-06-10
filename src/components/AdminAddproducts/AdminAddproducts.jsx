@@ -38,7 +38,7 @@ function AdminAddproducts() {
 
   const postData = async () => {
     try {
-      await addDoc(collectionRef, {
+        await addDoc(collectionRef, {
         title: productname,
         categories: Object.keys(categories).filter((key) => categories[key]),
         price: productMRP,

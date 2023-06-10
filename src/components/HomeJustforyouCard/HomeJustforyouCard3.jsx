@@ -24,7 +24,7 @@ function HomeJustforyouCard() {
 
   return (
 
-    <div className=' shadow-lg py-5 bg-gradient-to-r from-[#00071ab3] to-[#7278918d] mt-10 '>
+    <div className=' shadow-lg py-5  border border-gray-300  mt-10 '>
 
       <div className="pl-2 "> {/* Heading NewArrivals */}
         <p className='text-2xl leading-10 font-[acorn] py-2 '>Just For You</p>
@@ -41,7 +41,7 @@ function HomeJustforyouCard() {
               <div className="h-full relative flex items-center justify-center  ">
                 <img src={item.image} alt="img"
                   className=" object-contain w-full h-full rounded-sm" />
-                <p className='absolute bottom-0 text-[#ffffffd8] uppercase text-sm font-semibold'>{item.title}</p>
+                <p className='absolute -bottom-3 text-[#070707d8] uppercase text-sm font-semibold'>{item.title}</p>
               </div>
             </div>
 
