@@ -10,6 +10,7 @@ const ProductDetails = () => {
   const { selectedProduct } = useSelector((state) => state.search);
   const [rotate, setRotate] = useState(false);
   const [count, setCount] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const addCount = () => {
     setCount((prev) => prev + 1);
@@ -21,84 +22,139 @@ const ProductDetails = () => {
     }
   };
 
-  const handleclick = (item) => {
-    const phoneNumber = '918086022295';
-    const message = `product is : ${item.title} 
-    price : ${item.price} `;
+  const handleAddToCart = () => {
+    // Add the selectedProduct to the cart
+    // Implement your logic here
+  };
+
+  const handleToggleFavorite = () => {
+    setIsFavorite((prev) => !prev);
+  };
+
+  const handleWhatsApp = () => {
+    const phoneNumber = "918086022295";
+    const message = `Product: ${selectedProduct.title}\nPrice: ${selectedProduct.price}`;
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   };
 
   return (
-    <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 px-3 ">
-      <div className="flex justify-center items-center flex-col gap-3 ">
+    <div className="flex h-screen">
+      {/* Product Image */}
+      <div className="flex-1 relative">
+        <img
+          src={selectedProduct.image}
+          alt="Product Preview"
+          className="w-screen h-screen object-cover rounded-md"
+        />
+        <button 
+                  className={`flex items-center justify-center w-12 h-12 rounded-full text-3xl absolute right-10 top-10
+                   ${
+                    isFavorite ? "text-red-500 bg-gray-100" : "text-gray-700 bg-gray-200"
+                  }`}
+                  onClick={handleToggleFavorite}
+                >
+                  {isFavorite ? "❤️" : "🤍"}
+                </button>
+      </div>
 
-        {/* navbar */}
-        <div className="w-full h-12 flex items-center p-3 bg-slate-800 gap-10">
-          <BiArrowBack className="w-6 h-6" onClick={() => { navigate(-1); }} />
-          <p className="font-normal text-sm leading-4 text-gray-600"> Home / shop / product details</p>
-        </div>
+      {/* Product Details */}
+      <div className="flex-1 bg-gray-100 px-6 py-10">
+        <div className="max-w-2xl mx-auto">
+          {/* Navbar */}
+          <div className="flex items-center mb-6">
+            <BiArrowBack className="w-6 h-6 cursor-pointer text-gray-600" onClick={() => navigate(-1)} />
+            <p className="text-sm text-gray-600 ml-2">Home / Shop / Product Details</p>
+          </div>
 
-        {selectedProduct && (
+          {selectedProduct && (
+            <div>
+              <h2 className="text-3xl font-semibold text-gray-800 mb-2">{selectedProduct.title.slice(0, 10)}</h2>
 
-          <div className="  w-full sm:w-96 md:w-8/12 lg:w-6/12 items-center">
-            {/* Head titile */}
-            <h2 className="font-semibold text-3xl leading-9 text-gray-800 ">{selectedProduct.title.slice(0, 10)}</h2>
-
-            {/* Images Div */}
-            <div className=" w-full flex justify-center items-center">
-              <img src={selectedProduct.image} alt="Product Previw" className="w-40 h-30 rounded-md " />
-            </div>
-
-            {/* remview star */}
-            <div className=" flex flex-row justify-between  mt-5">
-              <div className=" flex flex-row space-x-3">
-                <AiFillStar className="w-6 h-6" />
-                <AiFillStar className="w-6 h-6 " />
-                <AiFillStar className="w-6 h-6" />
-                <AiFillStar className="w-6 h-6" />
-                <AiOutlineStar className="w-6 h-6" />
+              <div className="flex items-center mb-2">
+                <AiFillStar className="w-6 h-6 text-yellow-500" />
+                <AiFillStar className="w-6 h-6 text-yellow-500" />
+                <AiFillStar className="w-6 h-6 text-yellow-500" />
+                <AiFillStar className="w-6 h-6 text-yellow-500" />
+                <AiOutlineStar className="w-6 h-6 text-yellow-500" />
+                <p className="text-sm text-gray-700 ml-2">22 reviews</p>
               </div>
-              <p className=" font-normal text-base leading-4 text-gray-700 hover:underline hover:text-gray-800 duration-100 cursor-pointer">22 reviews</p>
-            </div>
 
-            {/* price  */}
-            <p className=" font-semibold lg:text-2xl text-xl lg:leading-6 leading-5 mt-6 ">$ {selectedProduct.price}</p>
+              <p className="text-xl font-semibold text-gray-800 mb-4">${selectedProduct.price}</p>
 
-            {/* detail titile  */}
-            <p className="text-lg font-normal leading-6 text-gray-600 mt-7">{selectedProduct.title}</p>
+              <p className="text-lg text-gray-600 mb-6">{selectedProduct.title}</p>
 
-            {/* product quality*/}
-            <div className="mt-10">
-              <div className="flex flex-row justify-between">
-                <p className=" font-medium text-base leading-4 text-gray-600">Select quantity</p>
-                <div className="flex">
-                  <span onClick={quantityCount} className=" cursor-pointer border border-gray-300 border-r-0 w-7 h-7 flex items-center justify-center pb-1"> - </span>
-                  <input aria-label="input" className="border border-gray-300 h-full text-center w-14 " type="number" value={count}
-                    onChange={(e) => e.target.value} />
-                  <span
+              <div className="flex items-center mb-6">
+                <p className="font-medium text-base text-gray-600">Select quantity</p>
+                <div className="flex items-center gap-2 ml-4">
+                  <button
+                    className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center transition-colors duration-300 bg-gray-200 hover:bg-gray-300"
+                    onClick={quantityCount}
+                  >
+                    -
+                  </button>
+                  <input
+                    className="w-16 h-8 border border-gray-300 text-center"
+                    type="number"
+                    min="0"
+                    value={count}
+                    onChange={(e) => setCount(e.target.value)}
+                  />
+                  <button
+                    className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center transition-colors duration-300 bg-gray-200 hover:bg-gray-300"
                     onClick={addCount}
-                    className=" cursor-pointer border border-gray-300 border-l-0 w-7 h-7 flex items-center justify-center pb-1 "> + </span>
+                  >
+                    +
+                  </button>
                 </div>
               </div>
 
-              {/* boder line  */}
-              <hr className=" bg-gray-200 w-full my-2" />
-              <div className="flex flex-row justify-between items-center mt-4">
-                <p className="font-medium text-base leading-4 text-gray-600"> Dimensions</p>
-                <MdOutlineKeyboardArrowDown className={" w-10 h-10 cursor-pointer " + (rotate ? "rotate-180" : "rotate-0")}
-                  onClick={() => setRotate(!rotate)} />
-              </div>
-              {/* boder line  */}
-              <hr className=" bg-gray-200 w-full mt-4" />
-            </div>
+              <hr className="bg-gray-200 my-4" />
 
-            {/* add button  */}
-            <button className=" hover:bg-black font-medium text-base leading-4 text-white bg-gray-800 w-full py-5 mt-6" >
-              <p onClick={() => handleclick(selectedProduct)}>Add to shopping bag</p>
-            </button>
-          </div>)}
+
+              <div className="flex items-center justify-between mb-4 cursor-pointer "
+               onClick={() => setRotate(!rotate)}>
+                <p className="font-medium text-base text-gray-600 ">Dimensions</p>
+                <MdOutlineKeyboardArrowDown
+                  className={`w-10 h-10 cursor-pointer transition-transform ${rotate ? "rotate-180" : ""} duration-500`}
+                 
+                />
+              </div>
+
+              {rotate && (
+                <div>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consequat pharetra interdum. Donec
+                    id justo ut nulla consectetur ornare. Praesent a aliquet libero. Donec sagittis interdum feugiat.
+                  </p>
+                </div>
+              )}
+
+              <hr className="bg-gray-200 mb-4" />
+
+              <div className="flex justify-between items-center">
+                <button
+                  className="px-6 py-3 text-base font-medium text-white bg-gray-800 hover:bg-black rounded-md"
+                  onClick={handleAddToCart}
+                >
+                  Add to Cart
+                </button>
+
+                
+              </div>
+
+              <div className="mt-6">
+                <button
+                  className="px-6 py-3 text-base font-medium text-white bg-gray-800 hover:bg-black rounded-md"
+                  onClick={handleWhatsApp}
+                >
+                  Contact via WhatsApp
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

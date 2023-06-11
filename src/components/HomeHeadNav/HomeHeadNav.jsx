@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import SearchPanel from "../SearchPanel/SearchPanel";
 import { useDispatch } from "react-redux";
-import { LoginpageOff, LoginpageOn } from "../../redux/Features/userToggle";
+import { LoginpageOn } from "../../redux/Features/userToggle";
 import { useNavigate } from "react-router-dom";
 import VideoCard from "../VideoCard/VideoCard";
 import { auth } from "../../firebase/firebase";
@@ -31,7 +30,7 @@ function HomeHeadNav() {
   // ----------------------------------------------------------------------
 
   const user = auth?.currentUser;
-  useEffect(()=>{
+  useEffect(() => {
     if (user) {
       setShowbtn(false)
     } else {
@@ -45,13 +44,10 @@ function HomeHeadNav() {
     setShowList(!showList);
     await signOut(auth);
     toast.success("Logged out successfully")
- };
+  };
   const handleLogin = async () => {
     dispatch(LoginpageOn())
- };
-  // ----------------------------------------------------------------------
-
-
+  };
 
   return (
     <>
@@ -112,54 +108,39 @@ function HomeHeadNav() {
 
             {/* login  */}
 
-
             <div className="hidden m-auto md:block order-6 ">
-      <button className="flex items-center gap-2" onClick={()=>setShowList(!showList)}>
-        <span className="">Login</span>
-        <span className="w-10 h-10 bg-blue-gray-400 flex rounded-full">
-          <img src={user?.photoURL}  alt="img" className="w-10 h-10 object-contain rounded-full" />
-          {/* <FaUserCircle className="w-7 h-7 m-auto" /> */}
-        </span>
-      </button>
-
-      {showList && (
-        <div className="mt-2 p-2 px-10 bg-white rounded shadow absolute right-5">
-          <ul className="space-y-2">
-            <li className="text-gray-700 ">Name : Drj</li>
-            <li className="text-gray-700 ">Email : {user?.email} </li>
-            <li>
-
-            {showbtn ?(
-              <button
-                className="text-red-500 hover:text-red-700 shadow-sm shadow-blue-gray-200 px-3"
-                onClick={handleLogin}
-              >
-               login
-              </button>):(<button
-                className="text-red-500 hover:text-red-700 shadow-sm shadow-blue-gray-200 px-3"
-                onClick={handleLogout}
-              >
-               logout
-              </button>)}
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
-
-
-
-
-            {/* user button lg
-            <div className=" hidden m-auto md:block order-6">
-              <button className="flex items-center gap-2" onClick={() => dispatch(LoginpageOn())}>
-                <span className="">{user.email}</span>
+              <button className="flex items-center gap-2" onClick={() => setShowList(!showList)}>
+                <span className="">Login</span>
                 <span className="w-10 h-10 bg-blue-gray-400 flex rounded-full">
-                <FaUserCircle className="w-7 h-7 m-auto" />
+                  <img src={user?.photoURL} alt="img" className="w-10 h-10 object-contain rounded-full" />
+                  {/* <FaUserCircle className="w-7 h-7 m-auto" /> */}
                 </span>
               </button>
-            </div> */}
 
+              {showList && (
+                <div className="mt-2 p-2 px-10 bg-white rounded shadow absolute right-5">
+                  <ul className="space-y-2">
+                    <li className="text-gray-700 ">Name : Drj</li>
+                    <li className="text-gray-700 ">Email : {user?.email} </li>
+                    <li>
+
+                      {showbtn ? (
+                        <button
+                          className="text-red-500 hover:text-red-700 shadow-sm shadow-blue-gray-200 px-3"
+                          onClick={handleLogin}
+                        >
+                          login
+                        </button>) : (<button
+                          className="text-red-500 hover:text-red-700 shadow-sm shadow-blue-gray-200 px-3"
+                          onClick={handleLogout}
+                        >
+                          logout
+                        </button>)}
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
           </div>
         </nav>
       </header>

@@ -19,7 +19,8 @@ function Homepage() {
     <React.Fragment>
       <LoginForm/>
       <HomeHeadNav/>
-      {/* <HomeCarousel/> lg show  */}
+      <HomeCarousel/> 
+      {/* lg show  */}
       <HomeIndoreCard/> {/* lg hidden  */}
       <HomeBanner/> {/* lg hidden  */}
       <HomeOutdoorCard/> {/* lg hidden  */}

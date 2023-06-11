@@ -54,7 +54,11 @@ function SearchPanel() {
   };
 
   const handleInputMouseEnter = () => {
-    setShowSuggestions(true);
+    if(titles.length > 0 )
+    {
+      setShowSuggestions(true);
+    }
+    
   };
 
   return (
