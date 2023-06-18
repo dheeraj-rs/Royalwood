@@ -14,6 +14,7 @@ function SearchPanel() {
   const firebaseData = collection(db, "furnitures");
   const { titles } = useSelector((state) => state.search);
   const { selectedProduct } = useSelector((state) => state.search);
+  const { Mouseleavesearch } = useSelector((state) => state.search);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
@@ -49,20 +50,23 @@ function SearchPanel() {
     dispatch(titleName(value));
   };
 
-  const handleInputMouseLeave = () => {
-    setShowSuggestions(false);
-  };
+  // const handleInputMouseLeave = () => {
+  //   setShowSuggestions(false);
+  // };
+
 
   const handleInputMouseEnter = () => {
     if(titles.length > 0 )
     {
       setShowSuggestions(true);
+    }else{
+      setShowSuggestions(Mouseleavesearch)
     }
     
   };
 
   return (
-    <div className="w-full relative top-0 sm:order-2 sm:flex " onMouseLeave={handleInputMouseLeave}>
+    <div className="w-full relative top-0 sm:order-2 sm:flex  "  >
 
       {/* all using searchpage input sm & lg using */}
       <div className="w-full backdrop-blur-sm z-10">

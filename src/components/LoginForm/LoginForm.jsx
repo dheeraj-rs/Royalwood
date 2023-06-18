@@ -7,39 +7,40 @@ import { toast } from "react-toastify";
 import { LoginpageOff } from "../../redux/Features/userToggle";
 
 const Loginform = () => {
+  const { Loginpage } = useSelector((state) => state.sidebar);
+  const dispach = useDispatch()
 
-   const dispach = useDispatch()
-  const [email, setEmail] = useState("");
+  // toggle login & signup 
+  const [toggleSign, setToggleSign] = useState(false);
+
+  // Email signup state
+  const [signupname, setSignupname] = useState("");
+  const [signupemail, setSignupmail] = useState("");
+  const [signuppassword, setSignuppassword] = useState("");
+  const [csignuppassword, setCsignuppassword] = useState("");
+
+  // Email login state
   const [loginemail, setLoginemail] = useState("");
-  const [password, setPassword] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
+  // phone Number login state
   const [otp, setOtp] = useState("");
   const [phone, setPhone] = useState("");
   const [user, setUser] = useState(null);
 
-  const { Loginpage } = useSelector((state) => state.sidebar);
-  const [toggleSign, setToggleSign] = useState(false);
 
+  // Email signup Function 
   const signUp = async () => {
     try {
-      const { user } = await createUserWithEmailAndPassword(auth, email, password);
-      const userId = user.uid;
+      const { user } = await createUserWithEmailAndPassword(auth, signupemail, signuppassword);
       toast.success("Sign up successful");
-      console.log("User ID:", userId);
+      console.log("User ID:", user.uid);
     } catch (error) {
       toast.warning("Sign up error");
     }
   };
-  
 
-  console.log("🚀 auth:", auth?.currentUser);
-
-  const verifyEmail = async () => {
-    await sendEmailVerification(auth.currentUser);
-    toast.success("Your Email verified");
-  };
-
-  // sign in
+  // Email Login
   const signIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, loginemail, loginPassword);
@@ -50,7 +51,7 @@ const Loginform = () => {
     }
   };
 
-  // reset password
+  // Email reset password
   const resetPassword = async () => {
     try {
       await sendPasswordResetEmail(auth, loginemail);
@@ -60,7 +61,13 @@ const Loginform = () => {
     }
   };
 
-  // phone
+  // veryfy Email signup Function 
+  const verifyEmail = async () => {
+    await sendEmailVerification(auth.currentUser);
+    toast.success("Your Email verified");
+  };
+
+  // phone sign up
   const sendOtp = async () => {
     try {
       const recaptchaVerifier = await new RecaptchaVerifier("recaptcha", {}, auth);
@@ -72,6 +79,7 @@ const Loginform = () => {
     }
   };
 
+   // phone sign up otp
   const confirmOtp = async () => {
     try {
       await user.confirm(otp);
@@ -80,13 +88,13 @@ const Loginform = () => {
     }
   };
 
+  // Login page close
   const handleToggleSign = () => {
     setToggleSign(!toggleSign);
   };
-  console.log("👍 ToggleSign: ", toggleSign);
 
   return (
-    <div className={`${Loginpage ? "top-0" : "-top-[1000px]"} duration-500 fixed backdrop-blur-sm shadow-lg  w-screen h-screen z-50`}>
+    <div className={`${Loginpage ? "top-0" : "-top-[2000px]"} duration-500 fixed backdrop-blur-sm shadow-lg  w-screen h-screen z-50`}>
       <div className={`${toggleSign ?"-top-[1000px]" :  "top-0"  } duration-1000 w-screen h-screen fixed backdrop-blur-sm z-50 `}>
         <div className="h-full flex justify-center items-center">
           {/* Container */}
@@ -136,7 +144,7 @@ const Loginform = () => {
                   </div>
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
-                      <input id="customCheckLogin" type="checkbox" className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
+                      <input  type="checkbox" className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600 text-white select-none">Remember me</span>
                       <span
                         className="ml-2 text-sm font-semibold text-blueGray-600 text-blue-800 select-none"
@@ -185,74 +193,77 @@ const Loginform = () => {
 
 
 
+
+
+
       <div className={`${toggleSign ? 'left-0' : '-left-[1500px]'} duration-1000 w-screen h-screen fixed z-[200] backdrop-blur-sm`}>
 
         <div className="h-full w-full flex justify-center items-center">
           <div className="container w-[90%] flex flex-col items-center justify-center px-2 rounded-md bg-[#000000bf]">
             <div className="px-6 py-8 rounded shadow-md text-black w-full">
+            <button className=" bg-blue-gray-100 px-3" onClick={()=>setToggleSign(!toggleSign)}>X</button>
+
               <h1 className="mb-8 text-3xl text-center text-white">Sign up</h1>
+
               <input
                 type="text"
                 className="block border border-gray-300 w-full p-3 rounded mb-4"
                 name="fullname"
                 placeholder="Full Name"
-              />
+                value={signupname}
+                onChange={(e) => setSignupname(e.target.value)}/>
+
               <input
                 type="text"
                 className="block border border-gray-300 w-full p-3 rounded mb-4"
                 name="email"
                 placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+                value={signupemail}
+                onChange={(e) => setSignupmail(e.target.value)} />
+
               <input
                 type="password"
                 className="block border border-gray-300 w-full p-3 rounded mb-4"
                 name="password"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+                value={csignuppassword}
+                onChange={(e) => setCsignuppassword(e.target.value)}/>
+
               <input
                 type="password"
                 className="block border border-gray-300 w-full p-3 rounded mb-4"
-                name="confirm_password"
-                placeholder="Confirm Password"
-              />
+                name="confirm_password" placeholder="Confirm Password"
+                value={signuppassword}
+                onChange={(e) => setSignuppassword(e.target.value)}/>
+                
 
+                <label className="w-max rounded-sm mr-4 flex items-center  bg-blue-gray-100 px-3">
+                <input
+                  type="checkbox"
+                  id="productCategoryIndoor"
+                  name="Indoor"
+                  className="mr-2 h-4 w-4 "
+                  // checked={categories.Indoor}
+                  onClick={verifyEmail}
+                />
+                Send Email Verify
+              </label>
+              {/* <button className=" bg-blue-gray-100 px-3"onClick={verifyEmail}> Email Verify</button> */}
+                
               <button
                 type="submit"
-                className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"
-                onClick={signUp}
-              >
+                className="w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1"onClick={signUp}>
                 Create Account
               </button>
 
-              <button
-                className=" bg-blue-gray-100 px-3"
-                onClick={verifyEmail}
-              >
-                Email Verify
-              </button>
-              <button className=" bg-blue-gray-100 px-3" onClick={()=>setToggleSign(!toggleSign)}>close</button>
 
               <div className="text-center text-sm text-gray-600 mt-4">
                 By signing up, you agree to the{" "}
-                <a
-                  className="no-underline border-b border-gray-600 text-gray-600"
-                  href="#"
-                >
-                  Terms of Service
-                </a>{" "}
-                and{" "}
-                <a
-                  className="no-underline border-b border-gray-600 text-gray-600"
-                  href="#"
-                >
-                  Privacy Policy
-                </a>
-               
+                <a className="no-underline border-b border-gray-600 text-gray-600">Terms of Service</a>
+                {" "}and{" "}
+                <a className="no-underline border-b border-gray-600 text-gray-600">Privacy Policy</a>         
               </div>
+
             </div>
           </div>
         </div>

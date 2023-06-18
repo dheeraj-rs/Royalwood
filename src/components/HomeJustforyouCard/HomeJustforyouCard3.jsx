@@ -24,17 +24,17 @@ function HomeJustforyouCard() {
 
   return (
 
-    <div className=' shadow-lg py-5  border border-gray-300  mt-10 '>
+    <div className=' shadow-lg py-5 md:px-5   border border-gray-300  mt-10 '>
 
       <div className="pl-2 "> {/* Heading NewArrivals */}
-        <p className='text-2xl leading-10 font-[acorn] py-2 '>Just For You</p>
+        <p className='text-2xl leading-10 font-[acorn] py-2 ' data-aos="fade-right">Just For You</p>
       </div>
 
       {/* NewArrivals container*/}
       <div className=" h-[20vh] md:h-[25vh] pl-2  overflow-x-auto  ">
 
         {/* moving div  */}
-        <div className="w-max h-full flex gap-5 overflow-x-auto p-5 backdrop-blur-lg">
+        <div className="w-max h-full flex gap-5 overflow-x-auto p-5 backdrop-blur-lg"  data-aos="fade-left">
           {data.map((item) => (
             <div key={item.id} className="w-[200px] md:w-[300px] py-3 flex flex-col rounded-md shadow-lg border ">
               {/* image  */}

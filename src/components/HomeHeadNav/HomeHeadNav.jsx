@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FiUserCheck } from "react-icons/fi";
 import SearchPanel from "../SearchPanel/SearchPanel";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LoginpageOn } from "../../redux/Features/userToggle";
 import { useNavigate } from "react-router-dom";
 import VideoCard from "../VideoCard/VideoCard";
 import { auth } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import { signOut } from "firebase/auth";
+import loginicon from "../../assets/drj.jpeg";
+import { Reloadlenght } from "../../redux/Features/calcproducts";
 
 function HomeHeadNav() {
+  const { reloadlenght } = useSelector((state) => state.calc);
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -33,6 +36,7 @@ function HomeHeadNav() {
   useEffect(() => {
     if (user) {
       setShowbtn(false)
+      dispatch(Reloadlenght())
     } else {
       setShowbtn(true)
     }
@@ -95,14 +99,15 @@ function HomeHeadNav() {
 
             {/* cart button lg */}
             <div className=" hidden m-auto md:block order-5">
-              <button className="flex gap-2 items-center " onClick={() => { navigate('/cart') }} >
-                <span className="text-lg ">Cart</span>
+              <button className="flex gap-2 items-center relative " onClick={() => { navigate('/cart') }} >
+                {/* <span className="text-lg ">Cart</span> */}
                 <AiOutlineShoppingCart
                   className="w-7 h-7"
                   onClick={() => {
                     navigate("/shop");
                   }}
                 />
+                <span className="bg-[#eeeeee] rounded-full w-5 h-4 text-xs absolute -top-1 -right-1">{0}</span>
               </button>
             </div>
 
@@ -110,15 +115,16 @@ function HomeHeadNav() {
 
             <div className="hidden m-auto md:block order-6 ">
               <button className="flex items-center gap-2" onClick={() => setShowList(!showList)}>
-                <span className="">Login</span>
+                {/* <span className="">Login</span> */}
                 <span className="w-10 h-10 bg-blue-gray-400 flex rounded-full">
-                  <img src={user?.photoURL} alt="img" className="w-10 h-10 object-contain rounded-full" />
+                  <img src={loginicon} alt="img" className="w-10 h-10 object-cover rounded-full" />
                   {/* <FaUserCircle className="w-7 h-7 m-auto" /> */}
                 </span>
               </button>
 
               {showList && (
-                <div className="mt-2 p-2 px-10 bg-white rounded shadow absolute right-5">
+                <div className="mt-2 p-2 px-10 bg-white rounded shadow absolute -bottom-28 right-5">
+                  <span className="w-2 h-2 bg-white absolute right-3 -top-1 rotate-45"></span>
                   <ul className="space-y-2">
                     <li className="text-gray-700 ">Name : Drj</li>
                     <li className="text-gray-700 ">Email : {user?.email} </li>

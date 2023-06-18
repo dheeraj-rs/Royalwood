@@ -8,10 +8,12 @@ function AdminEditproducts() {
     const storage = getStorage();
     const collectionRef = collection(db, 'furnitures');
     const inputRef = React.useRef(null);
+
+    const [discount, setDiscount] = useState(0);
     const [filename, setFilename] = useState('');
     const [description, setDescription] = useState('');
     const [productname, setProductname] = useState('');
-    const [productMRP, setProductMRP] = useState('');
+    const [productMRP, setProductMRP] = useState(0);
     const [showupload, setShowupload] = useState(null);
     const [editingId, setEditingId] = useState(null);
     const [data, setData] = useState([]);
@@ -57,6 +59,7 @@ function AdminEditproducts() {
             setProductMRP(selectedProduct.price);
             setShowupload(selectedProduct.image);
             setFilename(selectedProduct.fileName);
+            
             setCategories((prevCategories) => ({
                 ...prevCategories,
                 ...(selectedProduct.categories
@@ -101,7 +104,7 @@ function AdminEditproducts() {
             setProductname('');
             setDescription('');
             setFilename('');
-            setProductMRP('');
+            setProductMRP(0);
             setShowupload(null);
             setCategories({
                 Indoor: false,
@@ -170,6 +173,7 @@ function AdminEditproducts() {
                                 <thead>
                                     <tr>
                                         <th className="border px-4 py-2">Name</th>
+                                        <th className="border px-4 py-2">PRICE</th>
                                         <th className="border px-4 py-2">MRP</th>
                                         <th className="border px-4 py-2">Category</th>
                                         <th className="border px-4 py-2">Description</th>
@@ -182,6 +186,7 @@ function AdminEditproducts() {
                                         <tr key={item.id}>
                                             <td className="border px-4 py-2">{item.title}</td>
                                             <td className="border px-4 py-2">${item.price}</td>
+                                            <td className="border px-4 py-2">${item.priceMRP}</td>
                                             <td className="border px-4 py-2">{item.categories?.join(' , ')}</td>
 
                                             <td className="border px-4 py-2">{item.details}</td>
@@ -282,6 +287,19 @@ function AdminEditproducts() {
                             onChange={(e) => setProductMRP(e.target.value)}
                         />
                     </div>
+
+                    {/* Product Discount */}
+        <div>
+          <label className="text-sm font-medium">
+          Discount rate
+          </label>
+          <input
+            className="border border-gray-900 bg-gray-300 px-2 py-1 w-full text-black"
+            type="number"
+            value={discount}
+            onChange={(e) => setDiscount(e.target.value)}
+          />
+        </div>
 
                     {/* Product Description */}
                     <div>

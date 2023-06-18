@@ -13,6 +13,7 @@ import HomeBanner2 from "../../components/HomeBanner/HomeBanner2";
 import MainFooter from "../../components/MainFooter/MainFooter";
 import HomeLgIndoreCard from "../../components/HomeLgIndoreCard/HomeLgIndoreCard";
 import HomeLgOutdoreCard from "../../components/HomeLgOutdoreCard/HomeLgOutdoreCard";
+import HeadNav from "../../components/HomeHeadNav/HeadNav";
 import AOS from "aos";
 import "aos/dist/aos.css";
 AOS.init();

@@ -13,6 +13,7 @@ import { RiHeart2Line } from "react-icons/ri";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { auth } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
+import { LoginpageOn, Mouseleavesearch } from '../../redux/Features/userToggle';
 
 function Shop1() {
   const navigate = useNavigate()
@@ -20,13 +21,14 @@ function Shop1() {
   const furnituresRef = collection(db, "furnitures"); // database get furnitures collection
   const { selectedcategorie } = useSelector((state) => state.search); // redux storing sellected categories
 
+
   const [rotate, setRotate] = useState(false);  // filter button rotate arrow & filterpage
   const [data, setData] = useState([]); // collection furnitures data
   const [selectdata, setSelectdata] = useState([]); // filter the sellected categories data
   const [active, setActive] = useState([]) // select items or all items show the output
 
   const [filteredData, setFilteredData] = useState([]);
-  const [stoggle, setstoggle] = useState(false);
+  const [stoggle, setstoggle] = useState(true);
 
 
 
@@ -62,6 +64,13 @@ function Shop1() {
     }
   }, [data, selectdata])
 
+
+  useEffect(() => {
+    if (filteredData.length > 0) {
+      setActive(filteredData);
+    }
+  }, [filteredData]);
+
   // ----------------------------------------------------------------------
 
   // add to cart button click
@@ -72,70 +81,91 @@ function Shop1() {
       const uemail = user.email;
       const verifiedemail = user.emailVerified;
       const productid = cartitem.id;
-      postData(uid, uemail, verifiedemail, productid)
-        .then(() => {
-          toast.success('Product added successfully');
-        })
-        .catch((error) => {
-          console.error('Error adding document:', error);
-          toast.error('Failed to add product');
-        });
-
+      const Quantity = 1;
+      const Price = cartitem.price;
+      const PriceMRP = cartitem.priceMRP;
+      const Discount = cartitem.Discount;
+      postData(uid, uemail, verifiedemail, productid, Quantity, Price,Discount,PriceMRP)
     } else {
       dispatch(LoginpageOn());
     }
-  }
+  };
 
   // cart item post to database
-  const postData = async (uid, uemail, verifiedemail, productid) => {
+  const postData = async (uid, uemail, verifiedemail, productid, Quantity, Price,Discount,PriceMRP) => {
     try {
-      const cartRef = collection(db, `User : ${uemail}`);
+      const cartRef = collection(db, 'cart');
       const querySnapshot = await getDocs(cartRef);
-      const cartData = querySnapshot.docs.find((doc) => doc.data().productid == productid)
+      const cartData = querySnapshot.docs.find((doc) => doc.data().productid === productid);
 
       if (cartData) {
-        const docRef = doc(db, `User : ${uemail}`);
+        const docRef = doc(db, 'cart', cartData.id);
         await updateDoc(docRef, {
-          email: uemail,
-          verified: verifiedemail,
-          productid: productid,
-        })
-      }
-      else {
-        const cartRef2 = collection(db, `User : ${uemail}`);
-        await addDoc(cartRef2, {
           userid: uid,
           email: uemail,
           verified: verifiedemail,
           productid: productid,
-        })
+          price: Price,
+          priceMRP: PriceMRP,
+          quantity: cartData.data().quantity + Quantity,
+          Discount:Discount,
+
+
+        }).then(toast.success('Quantity updated successfully'))
+      } else {
+        await addDoc(cartRef, {
+          userid: uid,
+          email: uemail,
+          verified: verifiedemail,
+          productid: productid,
+          quantity: Quantity,
+          price: Price,
+          priceMRP: PriceMRP,
+          Discount:Discount,
+        }).then(toast.success('Product added to your cart successfully'))
       }
-    } catch (error) { throw error; }
-  }
+    } catch (error) {
+      throw error;
+    }
+  };
+
 
   // ----------------------------------------------------------------------
   // add to Fav button click
   const handleAddToFav = async (favitem) => {
     const user = auth?.currentUser;
     if (user !== null) {
-      const favId = favitem.id; // Extract the favId from favitem
-      postFav(favId)
+      const uid = user.uid;
+      const uemail = user.email;
+      const verifiedemail = user.emailVerified;
+      const favId = favitem.id;
+      const Quantity = 1;
+      const Price = favitem.price;
+
+      postFav(favId, uid, uemail, verifiedemail, Quantity, Price)
     } else {
-      dispatch(LoginpageOn());
+      dispatch(LoginpageOn())
     }
   };
-  const postFav = async (favId) => {
+  const postFav = async (favId, uid, uemail, verifiedemail, Quantity, Price) => {
     try {
       const user = auth.currentUser;
       if (user !== null) {
-        const uemail = user.email; // Access the uemail from the user object
-        const cartRef = collection(db, `User : ${uemail}`);
-        const querySnapshot = await getDocs(cartRef);
+        const favRef = collection(db, 'fav');
+        const querySnapshot = await getDocs(favRef);
         const cartData = querySnapshot.docs.find((doc) => doc.data().favId === favId);
         if (!cartData) {
-          const cartRef2 = collection(db, `User : ${uemail}`);
-          await addDoc(cartRef2, { favId: favId });
-        } else { toast.error('Fav item not added') }
+          await addDoc(favRef, {
+            favId: favId,
+            userid: uid,
+            email: uemail,
+            verified: verifiedemail,
+            quantity: Quantity,
+            price: Price,
+
+          }).then( toast.success('Product add your Fav successfully'))
+
+        } else { toast.error('Product is already in your fav'); }
       }
     } catch (error) {
       throw error;
@@ -163,22 +193,16 @@ function Shop1() {
   };
 
 
-  useEffect(() => {
-    if (filteredData.length > 0) {
-      setActive(filteredData);
-    } else {
-      setActive(data);
-    }
-  }, [data, filteredData]);
+
 
   const searchOn = () => {
     setstoggle(!stoggle)
   }
 
   return (
-    <div className="w-full h-auto overflow-hidden relative z-50 ">
+    <div className="w-full h-auto overflow-hidden relative z-50 " onClick={() => dispatch(Mouseleavesearch(false))}>
 
-      <div className=" bg-gray-500 flex">
+      <div className="  flex  py-3 border-b border-blue-gray-100 ">
         <div className=" w-full flex items-center justify-between    ">
           <div className="px-4 ">
             {/* back button */}
@@ -219,11 +243,11 @@ function Shop1() {
 
       <div className="w-auto overflow-x-scroll">
         <div
-          className={`transition-all duration-1000 ease-in-out overflow-hidden ${rotate ? 'h-0' : 'h-16'
+          className={`transition-all duration-1000 ease-in-out overflow-hidden ${rotate ? 'h-16' : 'h-0'
             }`} >
           <div className="flex justify-center my-2">
             <button
-              onClick={() => handleType('data')}
+              onClick={() => { setActive(data); handleType('data') }}
               className={`px-4 py-2 mx-2 rounded-md border-2 border-gray-800 
             ${selectedcategorie === 'data' ? 'bg-gray-800 text-white' : ''}`}>
               All
@@ -289,7 +313,7 @@ function Shop1() {
       {/* shop lists */}
       <div className={` duration-500 h-full flex flex-wrap justify-center gap-y-5 lg:justify-evenly pt-5`}>
         {active.map((items) => (
-          <div key={items.id} className="w-[140px] relative lg:w-[390px] lg:h-auto border rounded-md shadow-lg cursor-pointer mx-2 my-4 lg:my-0 lg:flex" onClick={() => dispatch(selectItem(items))}>
+          <div key={items.id} data-aos="zoom-in-up" className="  w-[140px] relative lg:w-[390px] lg:h-auto border rounded-md shadow-lg cursor-pointer mx-2 my-4 lg:my-0 lg:flex" onClick={() => dispatch(selectItem(items))}>
             <div className="w-full lg:h-[180px] lg:w-[40%]  overflow-hidden rounded-t-md p-3">
               <Link to="/productpage">
                 <img
@@ -310,9 +334,9 @@ function Shop1() {
               </div>
               <div className="flex gap-2">
                 <p className="font-light lg:font-bold">Price ₹{items.price}</p>
-                <p><span className="line-through text-gray-700 hidden lg:block"> ₹10699</span> </p>
+                <p><span className="line-through text-gray-700 hidden lg:block">{items.priceMRP}</span> </p>
               </div>
-              <span className="text-green-600 hidden lg:block">60% off</span>
+              <span className="text-green-600 hidden lg:block">{items.Discount}% off</span>
               <p className="text-green-600 font-semibold">{items.offer}</p>
               <p className="text-xs hidden lg:block">Free delivery</p>
               <div className="w-full flex lg:justify-between ">

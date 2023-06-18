@@ -7,6 +7,7 @@ import Loginform from '../../components/LoginForm/LoginForm'
 function ShopPage() {
   return (
     <>
+     <Loginform/>
       <Shop />
       <Loginform/>
       <SideMenubar />

@@ -46,7 +46,7 @@ const ProductDetails = () => {
         <img
           src={selectedProduct.image}
           alt="Product Preview"
-          className="w-screen h-screen object-cover rounded-md"
+          className="w-screen h-screen object-contain rounded-md"
         />
         <button 
                   className={`flex items-center justify-center w-12 h-12 rounded-full text-3xl absolute right-10 top-10

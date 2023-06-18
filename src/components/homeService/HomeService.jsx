@@ -1,7 +1,9 @@
 function HomeService() {
   return (
-    <div className=" w-full h-auto  p-3 gap-3 flex-col sm:flex-row sm:items-center py-10 hidden lg:flex bg-blue-gray-50">
-      <div className=" w-full  flex">
+    <div className=" w-full h-auto  p-3 gap-3 flex-col sm:flex-row sm:items-center py-10 hidden lg:flex bg-blue-gray-50" 
+ >
+      <div className="flex w-full justify-center pl-40  overflow-hidden">
+      <div className=" w-full  flex" data-aos="fade-right" >
         <div className=" w-1/2 h-full flex flex-col items-center ">
           <div className="w-5/6">
             <p className=" pb-2 text-sm">CUSTOMER SERVICE</p>
@@ -22,7 +24,7 @@ function HomeService() {
         </div>
       </div>
 
-      <div className=" w-full flex">
+      <div className=" w-full flex" data-aos="fade-left">
         <div className=" w-1/2 h-full flex flex-col items-center  ">
           <div className=" w-5/6">
             <p className=" pb-2 text-sm">SOCIAL MEDIA</p>
@@ -41,6 +43,7 @@ function HomeService() {
             <p className=" text-xs text-[#929292d9]">Help & Support</p>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

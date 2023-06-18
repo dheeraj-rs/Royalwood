@@ -137,7 +137,7 @@
 //                   </div>
 //                   <div>
 //                     <label className="inline-flex items-center cursor-pointer">
-//                       <input id="customCheckLogin" type="checkbox" className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
+//                       <input type="checkbox" className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150" />
 //                       <span className="ml-2 text-sm font-semibold text-blueGray-600 text-white select-none">Remember me</span>
 //                       <span
 //                         className="ml-2 text-sm font-semibold text-blueGray-600 text-blue-800 select-none"

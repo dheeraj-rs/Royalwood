@@ -17,7 +17,7 @@ function HomeLgOutdoreCard() {
   };
   
   return (
-    <div className="h-[35vh] lg:flex hidden px-2 shadow-xl  mt-10">
+    <div className="h-[35vh] lg:flex hidden px-2 md:px-5 shadow-xl"  data-aos="zoom-in"   data-aos-duration="500">
 
       {/* header  */}
       <div className="w-[20vw] bg-gradient-to-r from-gray-100 to-gray-300  flex flex-col items-center text-4xl bg-blue-gray-400 py-16 font-[acorn]   ">

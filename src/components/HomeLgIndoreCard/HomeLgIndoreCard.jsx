@@ -18,7 +18,7 @@ function HomeLgIndoreCard() {
   
   return (
 
-    <div className="h-[35vh] lg:flex hidden px-2 shadow-xl  my-5 mt-10">
+    <div className="h-[35vh] lg:flex hidden px-2 md:px-5  shadow-xl  my-5 mt-10 " >
 
       {/* header  */}
       <div className="w-[20vw] bg-gradient-to-r from-gray-100 to-gray-300  flex flex-col items-center text-4xl bg-blue-gray-400 py-16 font-[acorn]  ">
@@ -27,11 +27,11 @@ function HomeLgIndoreCard() {
           onClick={() => handleType('Indoor')}>View all</button></div>
       </div>
       {/* image container  */}
-      <div className="w-[80vw]  flex  gap-5 overflow-y-auto pl-5 py-5  border border-gray-300  ">
+      <div  className="w-[80vw]  flex  gap-5 overflow-y-auto pl-5 py-5  border border-gray-300  " >
         
             {/* image card  */}
-          <div  className="flex gap-5 rounded-lg shadow-lg shadow-gray-600" 
-           onClick={() => handleType('Living')}>
+          <div   className="flex gap-5 rounded-lg shadow-lg shadow-gray-600" 
+           onClick={() => handleType('Living')} >
             <div className="w-[300px] h-full relative flex gap-5">
               <img src={living} alt="img"
                 className="object-cover w-full  h-full rounded-lg " />

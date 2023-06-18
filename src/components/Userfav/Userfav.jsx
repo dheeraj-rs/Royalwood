@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 function Userfav() {
   const navigate = useNavigate();
   const user = auth.currentUser;
-  const favref = collection(db, `User : ${user?.email}`);
+  const favref = collection(db,'fav');
   const furnituresref = collection(db, 'furnitures');
 
   const [favdata, setFavdata] = useState([]);
@@ -64,8 +64,9 @@ function Userfav() {
     try {
       const checkfavid = favdata.filter((items) => items.favId == selectid);
       const itemsid = checkfavid.map((e) => e.id);
-      const itemsref = doc(db, `User : ${user?.email}`, itemsid.toString());
+      const itemsref = doc(db,'fav', itemsid.toString());
       await deleteDoc(itemsref).then( toast.success('Item removed from Fav successfully'))
+      favMap()
     } catch (error) {
       console.error('Error removing item from Fav:', error);
       toast.error('Failed to remove item from Fav');

@@ -5,6 +5,7 @@ const initialState = {
   adminEdit: false,
   Loginpage: false,
   // editpage:false,
+  mouseleavesearch:true,
 };
 
 const usersidebarToggle = createSlice({
@@ -29,6 +30,9 @@ const usersidebarToggle = createSlice({
     LoginpageOff: (state) => {
       state.Loginpage = false;
     },
+    Mouseleavesearch: (state,action) => {
+      state.mouseleavesearch = action.payload;
+    },
   },
 });
 
@@ -40,6 +44,8 @@ export const {
   adminEditlistOff,
   LoginpageOn,
   LoginpageOff,
+  Mouseleavesearch,
+  
 } = usersidebarToggle.actions;
 
 export default usersidebarToggle.reducer;

@@ -8,10 +8,13 @@ function AdminAddproducts() {
   const storage = getStorage();
   const collectionRef = collection(db, 'furnitures');
   const inputRef = React.useRef(null);
+
   const [description, setDescription] = useState('');
   const [productID, setProductID] = useState('')
+  const [discountPercentage, setDiscountPercentage] = useState(0)
   const [productname, setProductname] = useState('');
-  const [productMRP, setProductMRP] = useState('');
+  const [productMRP, setProductMRP] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0);
   const [imageupload, setImageupload] = useState(null);
   const [showupload, setShowupload] = useState(null);
   const [showbtn, setShowbtn] = useState(false);
@@ -37,19 +40,23 @@ function AdminAddproducts() {
   });
 
   const postData = async () => {
+   
     try {
         await addDoc(collectionRef, {
+        id: productID,
         title: productname,
         categories: Object.keys(categories).filter((key) => categories[key]),
-        price: productMRP,
         image: showupload,
-        details: description,
         fileName: filename,
-        id: productID,
+        details: description,
+        Discount:discountPercentage,
+        price: discountedPrice,
+        priceMRP:productMRP,
       });
       toast.success('Product Adding successfully');
+      setDiscountedPrice(0)
       setProductname('');
-      setProductMRP('');
+      setProductMRP(0);
       setDescription('')
       setFilename('')
       setShowupload(null);
@@ -96,6 +103,12 @@ function AdminAddproducts() {
     }));
   };
 
+  useEffect(()=>{
+    const discountAmount = (Number(discountPercentage) / 100) * productMRP;
+    const discounted= productMRP - discountAmount;
+    setDiscountedPrice(discounted)
+  },[discountPercentage,productMRP])
+
   return (
     <div className="flex justify-between items-center w-full h-full px-10 bg-blue-gray-400  bg-cover bg-center  text-white">
       <div className="w-[40%] h-full flex items-center justify-center">
@@ -134,6 +147,19 @@ function AdminAddproducts() {
             type="number"
             value={productID}
             onChange={(e) => setProductID(e.target.value)}
+          />
+        </div>
+
+        {/* Product Discount */}
+        <div>
+          <label className="text-sm font-medium">
+          Discount rate
+          </label>
+          <input
+            className="border border-gray-900 bg-gray-300 px-2 py-1 w-full text-black"
+            type="number"
+            value={discountPercentage}
+            onChange={(e) => setDiscountPercentage(e.target.value)}
           />
         </div>
 

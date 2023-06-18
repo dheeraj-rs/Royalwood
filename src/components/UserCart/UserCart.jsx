@@ -5,11 +5,14 @@ import { MdFavoriteBorder } from 'react-icons/md';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../firebase/firebase';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 function UserCart() {
+  const { reloadlenght } = useSelector((state) => state.calc);
+
   const navigate = useNavigate();
   const user = auth.currentUser;
-  const cartref = collection(db, `User : ${user?.email}`);
+  const cartref = collection(db,'cart');
   const furnituresref = collection(db, 'furnitures');
 
   const [cartdata, setCartdata] = useState([]);
@@ -18,10 +21,17 @@ function UserCart() {
   const [furnituresdata, setFurnituresdata] = useState([]);
   const [cartitems, setCartitems] = useState([]);
 
+  const [totalAmount , setTotalAmount] = useState(0)
+  const [discount, setDiscount] = useState(0)
+  const [totalquantity , setTotalQuantity] = useState(null)
+  const [cartitemLenght , setCartItemLength] = useState(null)
+
+
+
   useEffect(() => {
     cartMap();
     furnituresMap();
-  }, [user?.email]);
+  }, [user?.email,reloadlenght]);
 
   // cart data filter
   const cartMap = async () => {
@@ -31,8 +41,9 @@ function UserCart() {
         ...doc.data(),
         id: doc.id,
       }));
-      setCartdataid(cartmapdata.flatMap((item) => item.productid));
+     
       setCartdata(cartmapdata.flatMap((item) => item));
+      setCartdataid(cartmapdata.flatMap((item) => item.productid));
     } catch (error) {
       console.error('Error getting documents:', error);
     }
@@ -51,21 +62,45 @@ function UserCart() {
     }
   };
 
-  // Cartitems filter 
+
+
   useEffect(() => {
-    const filteredData = furnituresdata.filter((items) =>
-      cartdataid.includes(items.id)
-    );
+    const filteredData = furnituresdata.filter((item) => cartdataid.includes(item.id));
     setCartitems(filteredData);
+  
+    const total = cartdata.reduce((acc, item) => {
+      const totalAmt = acc + Number(item.price) * item.quantity;
+      console.log("Total Amount:", totalAmt);
+  
+      const discount = Number(item.priceMRP) - totalAmt;
+      console.log("Discount:", discount);
+  
+      setTotalAmount(totalAmt);
+      setDiscount(discount);
+      setTotalQuantity(cartdata.length);
+      setCartItemLength(cartdata.reduce((total, item) => total + item.quantity, 0));
+  
+      return totalAmt;
+    }, 0);
+  
+    console.log("Total:", total);
   }, [cartdataid, furnituresdata]);
+  
+  
+
   
  // delete items
   const handleDelete = async (selectid) => {
     try {
       const checkcartid = cartdata.filter((items) => items.productid === selectid);
       const itemid = checkcartid.map((e) => e.id);
-      const itemref = doc(db, `User : ${user?.email}`, itemid.toString());
+      const itemref = doc(db,'cart', itemid.toString());
       await deleteDoc(itemref).then(toast.success('Item removed from cart successfully'))
+      cartMap()
+      setTotalAmount(0);
+    
+      setTotalQuantity(0)
+      setCartItemLength(0)
 
     } catch (error) {
       console.error('Error removing item from cart:', error);
@@ -137,14 +172,14 @@ function UserCart() {
                     <span className="text-xs">(42 ratings)</span>
                   </div>
                 </div>
-                <div className="flex gap-1">
+                <div className="flex gap-2">
                   <p className="font-light lg:font-bold">
                     Price ₹{items.price}
                   </p>
                   <span className="line-through text-gray-700 ">
-                    ₹10699
+                  ₹{items.priceMRP}
                   </span>
-                  <span className="text-green-600">60% off</span>
+                  <span className="text-green-600">{items.Discount}% off</span>
                 </div>
                 <p className="text-green-600 font-semibold">{items.offer}</p>
                 <p className="text-xs hidden lg:block">Free delivery</p>
@@ -169,18 +204,28 @@ function UserCart() {
               <p className="py-5 font-semibold"> All Price Details</p>
               <ul className="flex flex-col font-light">
                 <li className="flex justify-between py-1">
-                  Price(1 item) <span>{"$9999"}</span>
+
+                  {/* total price  */}
+                  Price({totalquantity} item) <span>₹{totalAmount}</span>
                 </li>
                 <li className="flex justify-between py-1">
-                  Discount{" "}
-                  <span className="text-green-600">{"-$2750"}</span>
+                Quantity  <span>{cartitemLenght}</span>
                 </li>
+                <li className="flex justify-between py-1">
+                  Discount
+                  <span className="text-green-600">₹{discount}</span>
+                </li>
+                
+                {/* <li className="flex justify-between py-1  border-gray-300">
+                Promotion Applied{" "}
+                  <span className="text-green-600">-{0}</span>
+                </li> */}
                 <li className="flex justify-between py-1 border-b-2 border-dashed border-x-0 border-y-0 border-gray-300">
                   Delivery Charges{" "}
                   <span className="text-green-600">FREE Delivery</span>
                 </li>
                 <li className="flex justify-between py-5 font-semibold">
-                  Total Amount<span>{"$7249"}</span>
+                  Total Amount<span>₹{totalAmount}</span>
                 </li>
                 <li className="flex justify-between py-2 text-green-600">
                   You will save {"$2750"} on this order
@@ -188,7 +233,7 @@ function UserCart() {
               </ul>
               <div className="h-12 bg-white flex border-y border-x-0 py-10 border-gray-300 mb-20 ">
                 <div className="w-1/2 h-full flex flex-col justify-center ">
-                  <p className="font-semibold">{"$7249"}</p>
+                  <p className="font-semibold">₹{totalAmount}</p>
                   <a href="" className="text-xs text-blue-700">
                     View Price details
                   </a>
