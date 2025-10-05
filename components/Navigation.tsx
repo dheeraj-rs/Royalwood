@@ -22,7 +22,7 @@ const Navigation = () => {
   useEffect(() => {
     const updateCartCount = () => {
       const cartItems = JSON.parse(localStorage.getItem('cart') || '[]');
-      const count = cartItems.reduce((sum: number, item: any) => sum + item.quantity, 0);
+      const count = cartItems.reduce((sum: number, item: { quantity: number }) => sum + item.quantity, 0);
       setCartCount(count);
     };
 
