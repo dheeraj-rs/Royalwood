@@ -29,7 +29,6 @@ const CartPage = () => {
     loadCart();
     setIsLoading(false);
 
-    // Listen for cart updates
     window.addEventListener('cartUpdated', loadCart);
     return () => window.removeEventListener('cartUpdated', loadCart);
   }, []);

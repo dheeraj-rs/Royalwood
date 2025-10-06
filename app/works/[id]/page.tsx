@@ -317,7 +317,6 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ id: st
         </div>
       </section>
 
-      {/* Lightbox */}
       <Lightbox
         open={lightboxOpen}
         close={() => setLightboxOpen(false)}

@@ -211,7 +211,6 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="py-12 md:py-20 bg-gradient-to-b from-black via-gray-900 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
@@ -237,7 +236,6 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* Values Section */}
       <section className="py-20 bg-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -270,7 +268,6 @@ function AboutPage() {
       </section>
 
 
-      {/* Team Section */}
       <section className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -366,7 +363,6 @@ function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-20 bg-gradient-to-b from-black via-gray-900 to-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">

@@ -21,14 +21,11 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Simple mock authentication
     const user = {
       id: '1',
       name: formData.name || formData.email.split('@')[0],
       email: formData.email,
     };
-    
     dispatch({ type: 'LOGIN', payload: user });
     onClose();
   };
@@ -44,16 +41,12 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden">
-      {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
-      
-      {/* Modal */}
       <div className="relative w-full max-w-md mx-4 glass-morphism-dark rounded-2xl overflow-hidden">
         <div className="p-8">
-          {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-playfair text-3xl font-bold gold-text-gradient">
               {isLogin ? 'Welcome Back' : 'Join Royalwood'}
@@ -65,8 +58,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
               <X size={24} />
             </button>
           </div>
-
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {!isLogin && (
               <div className="relative">
@@ -82,7 +73,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                 />
               </div>
             )}
-            
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
@@ -95,7 +85,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                 required
               />
             </div>
-            
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
               <input
@@ -115,7 +104,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-
             <button
               type="submit"
               className="w-full gold-gradient text-black font-semibold py-4 rounded-lg hover:scale-105 transition-all duration-300"
@@ -124,7 +112,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
             </button>
           </form>
 
-          {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-gray-400 mb-4">
               {isLogin ? "Don't have an account?" : 'Already have an account?'}
@@ -137,7 +124,6 @@ const AuthModal = ({ isOpen, onClose }: AuthModalProps) => {
             </button>
           </div>
 
-          {/* Social Login */}
           <div className="mt-8 pt-8 border-t border-white/10">
             <p className="text-center text-gray-400 mb-4">Or continue with</p>
             <div className="grid grid-cols-2 gap-4">

@@ -12,7 +12,7 @@ const Hero = () => {
     <section id="home" className="min-h-screen relative flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <Image
-          src="/shop1.png"
+          src="/shop.png"
           alt="Luxury Interior"
           className="w-full h-full object-cover"
           width={800}

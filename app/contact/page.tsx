@@ -27,10 +27,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800  relative overflow-hidden">
-      {/* <div className="fixed inset-0 bg-gradient-to-br from-amber-900/10 via-black to-slate-900/20 pointer-events-none" /> */}
-
       <SubHeader />
-
       <main className="relative pt-24 md:pt-32 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16 space-y-6">
@@ -45,7 +42,6 @@ export default function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            {/* Visit Us Card */}
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-amber-500/10 hover:border-amber-500/30 transition-all duration-500 hover:scale-105 text-center">
               <div className="inline-flex w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/30 items-center justify-center mb-6">
                 <MapPin className="w-8 h-8 text-amber-400" />
@@ -65,7 +61,6 @@ export default function ContactPage() {
               <p className="text-gray-400 text-sm">Kerala</p>
             </div>
 
-            {/* Call Us Card */}
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-amber-500/10 hover:border-amber-500/30 transition-all duration-500 hover:scale-105 text-center">
               <div className="inline-flex w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/30 items-center justify-center mb-6">
                 <Phone className="w-8 h-8 text-amber-400" />
@@ -90,7 +85,6 @@ export default function ContactPage() {
               <p className="text-gray-400 text-sm">Mon-Sat 7AM-9PM</p>
             </div>
 
-            {/* Email Us Card */}
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-amber-500/10 hover:border-amber-500/30 transition-all duration-500 hover:scale-105 text-center">
               <div className="inline-flex w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/30 items-center justify-center mb-6">
                 <Mail className="w-8 h-8 text-amber-400" />
@@ -267,7 +261,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* FAQ Section */}
           <div className="mt-20">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold font-playfair text-white mb-4">
@@ -314,16 +307,6 @@ export default function ContactPage() {
               </Card>
             </div>
           </div>
-
-          {/* <div className="mt-16 rounded-2xl overflow-hidden h-[400px] border border-amber-500/20">
-            <div
-              className="w-full h-full bg-cover bg-center"
-              style={{
-                backgroundImage: "url('https://images.pexels.com/photos/1367192/pexels-photo-1367192.jpeg?auto=compress&cs=tinysrgb&w=1920')",
-                filter: "brightness(0.7) grayscale(0.3)",
-              }}
-            />
-          </div> */}
         </div>
       </main>
 

@@ -2,6 +2,7 @@
 
 import { X, Plus, Minus, Trash2 } from 'lucide-react';
 import { useApp } from '@/app/providers';
+import Image from 'next/image';
 
 interface CartProps {
   isOpen: boolean;
@@ -36,16 +37,12 @@ const Cart = ({ isOpen, onClose }: CartProps) => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
-
-      {/* Cart Panel */}
       <div className="absolute right-0 top-0 h-full w-full max-w-md bg-black/90 backdrop-blur-xl border-l border-white/10">
         <div className="flex flex-col h-full">
-          {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-white/10">
             <h2 className="font-playfair text-2xl font-bold">Shopping Cart</h2>
             <button
@@ -56,7 +53,6 @@ const Cart = ({ isOpen, onClose }: CartProps) => {
             </button>
           </div>
 
-          {/* Cart Items */}
           <div className="flex-1 overflow-y-auto p-6">
             {cart.length === 0 ? (
               <div className="text-center py-16">
@@ -71,10 +67,12 @@ const Cart = ({ isOpen, onClose }: CartProps) => {
                 {cart.map((item) => (
                   <div key={item.id} className="glass-morphism rounded-lg p-4">
                     <div className="flex items-start space-x-4">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.name}
                         className="w-16 h-16 object-cover rounded-lg"
+                        width={800}
+                        height={600}
                       />
                       <div className="flex-1">
                         <h4 className="font-semibold mb-1">{item.name}</h4>
@@ -118,7 +116,6 @@ const Cart = ({ isOpen, onClose }: CartProps) => {
             )}
           </div>
 
-          {/* Footer */}
           {cart.length > 0 && (
             <div className="p-6 border-t border-white/10">
               {savings > 0 && (

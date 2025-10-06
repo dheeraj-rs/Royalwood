@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 :root {
   --gold: #FFD700;
@@ -17,7 +16,6 @@
   }
 
   body {
-    @apply bg-black text-white;
     background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 50%, #0A0A0A 100%);
     min-height: 100vh;
   }

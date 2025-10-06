@@ -54,17 +54,12 @@ const CheckoutPage = () => {
   };
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\s/g, ''); // Remove spaces
-    value = value.replace(/\D/g, ''); // Remove non-digits
-
-    // Limit to 16 digits
+    let value = e.target.value.replace(/\s/g, '');
+    value = value.replace(/\D/g, '');
     if (value.length > 16) {
       value = value.slice(0, 16);
     }
-
-    // Add space every 4 digits
     const formatted = value.match(/.{1,4}/g)?.join(' ') || value;
-
     setFormData(prev => ({
       ...prev,
       cardNumber: formatted
@@ -73,8 +68,6 @@ const CheckoutPage = () => {
 
   const handleExpiryDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.target.value;
-
-    // Handle backspace - allow deletion of the slash
     if (input.length < formData.expiryDate.length) {
       setFormData(prev => ({
         ...prev,
@@ -84,14 +77,11 @@ const CheckoutPage = () => {
       return;
     }
 
-    let value = input.replace(/\D/g, ''); // Remove non-digits
-
-    // Limit to 4 digits (MMYY)
+    let value = input.replace(/\D/g, '');
     if (value.length > 4) {
       value = value.slice(0, 4);
     }
 
-    // Validate month as user types
     if (value.length >= 1) {
       const firstDigit = parseInt(value[0]);
       if (firstDigit > 1) {
@@ -108,7 +98,6 @@ const CheckoutPage = () => {
       }
     }
 
-    // Validate year if complete
     if (value.length === 4) {
       const month = parseInt(value.slice(0, 2));
       const year = parseInt(value.slice(2, 4));
@@ -124,7 +113,6 @@ const CheckoutPage = () => {
       setExpiryError('');
     }
 
-    // Auto-format with slash
     let formatted = value;
     if (value.length >= 2) {
       formatted = value.slice(0, 2) + '/' + value.slice(2);
@@ -137,9 +125,7 @@ const CheckoutPage = () => {
   };
 
   const handleCVVChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
-
-    // Limit to 3 digits
+    let value = e.target.value.replace(/\D/g, '');
     if (value.length > 3) {
       value = value.slice(0, 3);
     }
@@ -371,8 +357,8 @@ const CheckoutPage = () => {
                       placeholder="MM/YY"
                       maxLength={5}
                       className={`w-full px-4 py-3 bg-white/5 border rounded-lg text-white placeholder-gray-400 focus:outline-none ${expiryError
-                          ? 'border-red-500 focus:border-red-500'
-                          : 'border-white/10 focus:border-amber-400/50'
+                        ? 'border-red-500 focus:border-red-500'
+                        : 'border-white/10 focus:border-amber-400/50'
                         }`}
                     />
                     {expiryError && (
