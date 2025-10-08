@@ -8,6 +8,9 @@
   --black-light: #1A1A1A;
   --gray-dark: #2A2A2A;
   --gray-light: #4A4A4A;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @layer base {

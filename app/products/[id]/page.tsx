@@ -56,7 +56,7 @@ export default function ProductPage() {
                 Home
               </Link>
               <span className="text-gray-600">/</span>
-              <Link href="/shop" className="text-gray-400 hover:text-amber-400 transition-colors duration-300">
+              <Link href="/products" className="text-gray-400 hover:text-amber-400 transition-colors duration-300">
                 Shop
               </Link>
               <span className="text-gray-600">/</span>

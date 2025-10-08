@@ -1,227 +1,280 @@
-"use client";
+'use client';
 
-import React, { useState } from 'react';
-import Footer from '@/components/Footer';
-import { Star, Quote } from 'lucide-react';
-import Link from 'next/link';
-import SubHeader from '@/components/SubHeader';
+import { useState } from 'react';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
+import { Calendar, MapPin, User, ArrowRight } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { GalleryHeader } from './GalleryHeader';
+import { FilterBar } from './FilterBar';
+// import './index.css';
 
-const PortfolioPage = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
+interface Project {
+    id: number;
+    title: string;
+    client: string;
+    location: string;
+    date: string;
+    category: string;
+    description: string;
+    images: string[];
+}
 
-  const categories = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'living', label: 'Living Room' },
-    { id: 'bedroom', label: 'Bedroom' },
-    { id: 'dining', label: 'Dining Room' },
-    { id: 'office', label: 'Office' },
-  ];
-
-  const projects = [
+const projects: Project[] = [
     {
-      id: 1,
-      title: "Modern Luxury Living Room",
-      category: "living",
-      image: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "A sophisticated living space featuring our premium leather sectional and handcrafted coffee table.",
-      client: "The Henderson Residence"
+        id: 1,
+        title: 'Modern Living Room Suite',
+        client: 'The Anderson Family',
+        location: 'Beverly Hills, CA',
+        date: 'September 2024',
+        category: 'Residential',
+        description: 'Complete custom furniture set featuring a handcrafted walnut entertainment center, matching coffee table, and bespoke shelving units. Designed to complement mid-century modern aesthetics.',
+        images: [
+            'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/276583/pexels-photo-276583.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        ]
     },
     {
-      id: 2,
-      title: "Executive Office Suite",
-      category: "office",
-      image: "https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Custom executive desk and built-in shelving system for a corporate headquarters.",
-      client: "Sterling & Associates"
+        id: 2,
+        title: 'Executive Office Collection',
+        client: 'TechCorp HQ',
+        location: 'San Francisco, CA',
+        date: 'August 2024',
+        category: 'Commercial',
+        description: 'Premium executive desks and conference tables crafted from sustainable oak. Features include integrated cable management and custom dimensions for modern office spaces.',
+        images: [
+            'https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/2451544/pexels-photo-2451544.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1957478/pexels-photo-1957478.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        ]
     },
     {
-      id: 3,
-      title: "Master Bedroom Collection",
-      category: "bedroom",
-      image: "https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Elegant bedroom set with custom headboard and matching nightstands.",
-      client: "The Riverside Estate"
+        id: 3,
+        title: 'Rustic Dining Experience',
+        client: 'The Harvest Restaurant',
+        location: 'Portland, OR',
+        date: 'July 2024',
+        category: 'Commercial',
+        description: 'Farm-to-table dining furniture featuring reclaimed barn wood tables with live edges, custom bench seating, and vintage-inspired chairs. Perfect for creating an authentic rustic atmosphere.',
+        images: [
+            'https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/6489086/pexels-photo-6489086.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1395967/pexels-photo-1395967.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        ]
     },
     {
-      id: 4,
-      title: "Dining Room Transformation",
-      category: "dining",
-      image: "https://images.pexels.com/photos/1571467/pexels-photo-1571467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Grand dining table with custom chairs and china cabinet for family gatherings.",
-      client: "The Morrison Family"
+        id: 4,
+        title: 'Minimalist Bedroom Set',
+        client: 'Studio Apartment Project',
+        location: 'New York, NY',
+        date: 'June 2024',
+        category: 'Residential',
+        description: 'Space-efficient bedroom furniture with clean lines and hidden storage solutions. Platform bed with integrated nightstands and a floating wardrobe system.',
+        images: [
+            'https://images.pexels.com/photos/1743229/pexels-photo-1743229.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1909791/pexels-photo-1909791.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1454806/pexels-photo-1454806.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        ]
     },
     {
-      id: 5,
-      title: "Contemporary Living Space",
-      category: "living",
-      image: "https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Modern furniture collection blending comfort with cutting-edge design.",
-      client: "Downtown Loft Project"
+        id: 5,
+        title: 'Boutique Hotel Lobby',
+        client: 'The Grand Vista Hotel',
+        location: 'Miami, FL',
+        date: 'May 2024',
+        category: 'Hospitality',
+        description: 'Luxurious lobby furniture including reception desk, lounge seating, and decorative console tables. Features exotic veneers and brass accents for a sophisticated tropical aesthetic.',
+        images: [
+            'https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/271795/pexels-photo-271795.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1438832/pexels-photo-1438832.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        ]
     },
     {
-      id: 6,
-      title: "Home Office Sanctuary",
-      category: "office",
-      image: "https://images.pexels.com/photos/159045/the-interior-of-the-repair-interior-design-159045.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Productive workspace with custom storage solutions and ergonomic furniture.",
-      client: "Creative Professional"
-    }
-  ];
-
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "Interior Designer",
-      image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=200",
-      content: "Royalwood's attention to detail is unmatched. Every piece they create is a work of art that perfectly balances form and function. My clients are always thrilled with the results.",
-      rating: 5,
-      project: "Modern Luxury Living Room"
+        id: 6,
+        title: 'Home Library & Study',
+        client: 'Private Collector',
+        location: 'Boston, MA',
+        date: 'April 2024',
+        category: 'Residential',
+        description: 'Floor-to-ceiling custom bookcases in cherry wood with rolling library ladder. Includes a built-in reading nook and antique-inspired writing desk with leather inlay.',
+        images: [
+            'https://images.pexels.com/photos/667838/pexels-photo-667838.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/2908984/pexels-photo-2908984.jpeg?auto=compress&cs=tinysrgb&w=1200',
+            'https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=1200',
+        ]
     },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "CEO, Sterling & Associates",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=200",
-      content: "The executive office suite Royalwood created for our headquarters is stunning. It reflects our company's values of excellence and professionalism. Highly recommended.",
-      rating: 5,
-      project: "Executive Office Suite"
-    },
-    {
-      id: 3,
-      name: "Emma Davis",
-      role: "Homeowner",
-      image: "https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=200",
-      content: "Our dining room has become the heart of our home thanks to Royalwood's beautiful craftsmanship. The quality is exceptional and the design is timeless.",
-      rating: 5,
-      project: "Dining Room Transformation"
-    }
-  ];
+];
 
-  const filteredProjects = activeCategory === 'all'
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+export default function GalleryPage() {
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [photoIndex, setPhotoIndex] = useState(0);
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [filter, setFilter] = useState<string>('All');
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      <SubHeader />
+    const categories = ['All', 'Residential', 'Commercial', 'Hospitality'];
 
-      <section className="pt-24 pb-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
-              My Previous <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Works</span>
-            </h1>
-            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-              Explore my completed projects with photos, details, and prices. Filter by category and click any project to see the full story of quality craftsmanship.
-            </p>
-          </div>
-        </div>
-      </section>
+    const filteredProjects = filter === 'All'
+        ? projects
+        : projects.filter(p => p.category === filter);
 
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${activeCategory === category.id
-                  ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg'
-                  : 'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
-                  }`}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+    const openLightbox = (project: Project, imageIndex: number) => {
+        setSelectedProject(project);
+        setPhotoIndex(imageIndex);
+        setLightboxOpen(true);
+    };
 
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <Link key={project.id} href={`/works/${project.id}`} className="group cursor-pointer">
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/10 hover:bg-white/10 hover:border-amber-400/30 transition-all duration-300">
-                  <div className="relative overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
-                      width={800}
-                      height={600}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </div>
-                  <div className="p-6 space-y-4">
-                    <div>
-                      <h3 className="text-xl font-semibold text-white group-hover:text-amber-400 transition-colors mb-2">
-                        {project.title}
-                      </h3>
-                      <p className="text-amber-400 text-sm font-medium mb-3">{project.client}</p>
-                      <p className="text-gray-400 text-sm leading-relaxed">{project.description}</p>
+    const slides = selectedProject?.images.map(src => ({ src })) || [];
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-amber-50">
+            <GalleryHeader />
+            {/* <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h1 className="text-3xl font-bold text-stone-900 tracking-tight">Artisan Furniture Gallery</h1>
+                            <p className="text-stone-600 mt-1">Handcrafted Excellence Since 1995</p>
+                        </div>
+                        <Button variant="outline" className="hidden sm:flex items-center gap-2">
+                            Get a Quote
+                            <ArrowRight className="w-4 h-4" />
+                        </Button>
                     </div>
-                  </div>
                 </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+            </header> */}
 
-      <section className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              What Our Clients Say
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Real experiences from real customers who trusted us with their spaces
-            </p>
-          </div>
+            <FilterBar categories={categories} selectedCategory={filter} onCategoryChange={setFilter} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <div key={testimonial.id} className="group">
-                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:bg-white/10 hover:border-amber-400/30 transition-all duration-300 h-full">
-                  <div className="flex items-center mb-6">
-                    <Image
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover mr-4"
-                      width={800}
-                      height={600}
-                    />
-                    <div>
-                      <h4 className="text-white font-semibold">{testimonial.name}</h4>
-                      <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                    </div>
-                  </div>
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                {/* <div className="text-center mb-12">
+                    <h2 className="text-4xl font-bold text-stone-900 mb-4">Our Portfolio</h2>
+                    <p className="text-lg text-stone-600 max-w-2xl mx-auto">
+                        Explore our collection of custom furniture projects, each piece meticulously crafted to bring our clients&apos; visions to life.
+                    </p>
+                </div>
 
-                  <div className="flex items-center mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-amber-400 text-amber-400 mr-1" />
+                <div className="flex flex-wrap justify-center gap-3 mb-12">
+                    {categories.map((category) => (
+                        <Button
+                            key={category}
+                            variant={filter === category ? 'default' : 'outline'}
+                            onClick={() => setFilter(category)}
+                            className="min-w-[120px]"
+                        >
+                            {category}
+                        </Button>
                     ))}
-                  </div>
+                </div> */}
 
-                  <Quote className="text-amber-400 mb-4" size={24} />
-                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                    &quot;{testimonial.content}&quot;
-                  </p>
-                  <p className="text-amber-400 text-xs font-medium">
-                    Project: {testimonial.project}
-                  </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredProjects.map((project) => (
+                        <Card key={project.id} className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-stone-200">
+                            <div className="relative h-64 overflow-hidden bg-stone-100">
+                                <Image
+                                    src={project.images[0]}
+                                    alt={project.title}
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    width={800}
+                                    height={600}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="absolute bottom-4 left-4 right-4">
+                                        <Button
+                                            variant="secondary"
+                                            size="sm"
+                                            onClick={() => openLightbox(project, 0)}
+                                            className="w-full"
+                                        >
+                                            View Gallery ({project.images.length} photos)
+                                        </Button>
+                                    </div>
+                                </div>
+                                <Badge className="absolute top-4 right-4 bg-white text-stone-900 hover:bg-white">
+                                    {project.category}
+                                </Badge>
+                            </div>
+
+                            <CardContent className="p-6">
+                                <h3 className="text-xl font-bold text-stone-900 mb-3 group-hover:text-amber-700 transition-colors">
+                                    {project.title}
+                                </h3>
+
+                                <p className="text-stone-600 mb-4 line-clamp-2">
+                                    {project.description}
+                                </p>
+
+                                <div className="space-y-2 text-sm text-stone-500">
+                                    <div className="flex items-center gap-2">
+                                        <User className="w-4 h-4" />
+                                        <span>{project.client}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <MapPin className="w-4 h-4" />
+                                        <span>{project.location}</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Calendar className="w-4 h-4" />
+                                        <span>{project.date}</span>
+                                    </div>
+                                </div>
+
+                                <div className="mt-4 pt-4 border-t border-stone-200">
+                                    <div className="flex gap-2">
+                                        {project.images.slice(0, 3).map((img, idx) => (
+                                            <button
+                                                key={idx}
+                                                onClick={() => openLightbox(project, idx)}
+                                                className="flex-1 h-16 rounded-md overflow-hidden hover:ring-2 hover:ring-amber-500 transition-all"
+                                            >
+                                                <Image
+                                                    src={img}
+                                                    alt={`${project.title} ${idx + 1}`}
+                                                    className="w-full h-full object-cover"
+                                                    width={800}
+                                                    height={600}
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <Footer />
-    </div>
-  );
-};
 
-export default PortfolioPage;
+                {filteredProjects.length === 0 && (
+                    <div className="text-center py-12">
+                        <p className="text-stone-500 text-lg">No projects found in this category.</p>
+                    </div>
+                )}
+            </main>
+
+            <footer className="border-t bg-stone-900 text-stone-300 mt-20">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div className="text-center">
+                        <h3 className="text-2xl font-bold text-white mb-2">Ready to Start Your Project?</h3>
+                        <p className="text-stone-400 mb-6">Let&apos;s create something beautiful together.</p>
+                        <Button size="lg" className="bg-amber-600 hover:bg-amber-700">
+                            Contact Us Today
+                        </Button>
+                    </div>
+                </div>
+            </footer>
+
+            <Lightbox
+                open={lightboxOpen}
+                close={() => setLightboxOpen(false)}
+                slides={slides}
+                index={photoIndex}
+                on={{
+                    view: ({ index }) => setPhotoIndex(index),
+                }}
+            />
+        </div>
+    );
+}
