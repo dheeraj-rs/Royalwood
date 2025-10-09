@@ -2,14 +2,21 @@
 
 import { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails';
+import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
+import Slideshow from 'yet-another-react-lightbox/plugins/slideshow';
 import 'yet-another-react-lightbox/styles.css';
-import { Calendar, MapPin, User, ArrowRight } from 'lucide-react';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
+import { Calendar, MapPin, User } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { GalleryHeader } from './GalleryHeader';
 import { FilterBar } from './FilterBar';
+import Footer from '@/components/Footer';
+import SubHeader from '@/components/SubHeader';
 // import './index.css';
 
 interface Project {
@@ -131,50 +138,17 @@ export default function GalleryPage() {
     const slides = selectedProject?.images.map(src => ({ src })) || [];
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-amber-50">
+        <div className="min-h-screen bg-white">
+            <SubHeader />
             <GalleryHeader />
-            {/* <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-3xl font-bold text-stone-900 tracking-tight">Artisan Furniture Gallery</h1>
-                            <p className="text-stone-600 mt-1">Handcrafted Excellence Since 1995</p>
-                        </div>
-                        <Button variant="outline" className="hidden sm:flex items-center gap-2">
-                            Get a Quote
-                            <ArrowRight className="w-4 h-4" />
-                        </Button>
-                    </div>
-                </div>
-            </header> */}
 
             <FilterBar categories={categories} selectedCategory={filter} onCategoryChange={setFilter} />
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                {/* <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold text-stone-900 mb-4">Our Portfolio</h2>
-                    <p className="text-lg text-stone-600 max-w-2xl mx-auto">
-                        Explore our collection of custom furniture projects, each piece meticulously crafted to bring our clients&apos; visions to life.
-                    </p>
-                </div>
-
-                <div className="flex flex-wrap justify-center gap-3 mb-12">
-                    {categories.map((category) => (
-                        <Button
-                            key={category}
-                            variant={filter === category ? 'default' : 'outline'}
-                            onClick={() => setFilter(category)}
-                            className="min-w-[120px]"
-                        >
-                            {category}
-                        </Button>
-                    ))}
-                </div> */}
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <main className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-10 lg:py-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                     {filteredProjects.map((project) => (
                         <Card key={project.id} className="group overflow-hidden hover:shadow-2xl transition-all duration-300 border-stone-200">
-                            <div className="relative h-64 overflow-hidden bg-stone-100">
+                            <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-stone-100">
                                 <Image
                                     src={project.images[0]}
                                     alt={project.title}
@@ -183,53 +157,53 @@ export default function GalleryPage() {
                                     height={600}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <div className="absolute bottom-4 left-4 right-4">
+                                    <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 md:bottom-4 md:left-4 md:right-4">
                                         <Button
                                             variant="secondary"
                                             size="sm"
                                             onClick={() => openLightbox(project, 0)}
-                                            className="w-full"
+                                            className="w-full text-xs sm:text-sm py-1.5 sm:py-2"
                                         >
                                             View Gallery ({project.images.length} photos)
                                         </Button>
                                     </div>
                                 </div>
-                                <Badge className="absolute top-4 right-4 bg-white text-stone-900 hover:bg-white">
+                                <Badge className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 bg-white text-stone-900 hover:bg-white text-xs sm:text-sm">
                                     {project.category}
                                 </Badge>
                             </div>
 
-                            <CardContent className="p-6">
-                                <h3 className="text-xl font-bold text-stone-900 mb-3 group-hover:text-amber-700 transition-colors">
+                            <CardContent className="p-3 sm:p-4 md:p-5 lg:p-6">
+                                <h3 className="text-base sm:text-lg md:text-xl font-bold text-stone-900 mb-2 sm:mb-3 group-hover:text-amber-700 transition-colors line-clamp-2">
                                     {project.title}
                                 </h3>
 
-                                <p className="text-stone-600 mb-4 line-clamp-2">
+                                <p className="text-xs sm:text-sm text-stone-600 mb-3 sm:mb-4 line-clamp-2 leading-relaxed">
                                     {project.description}
                                 </p>
 
-                                <div className="space-y-2 text-sm text-stone-500">
-                                    <div className="flex items-center gap-2">
-                                        <User className="w-4 h-4" />
-                                        <span>{project.client}</span>
+                                <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-stone-500">
+                                    <div className="flex items-center gap-1.5 sm:gap-2">
+                                        <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                                        <span className="truncate">{project.client}</span>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <MapPin className="w-4 h-4" />
-                                        <span>{project.location}</span>
+                                    <div className="flex items-center gap-1.5 sm:gap-2">
+                                        <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                                        <span className="truncate">{project.location}</span>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <Calendar className="w-4 h-4" />
+                                    <div className="flex items-center gap-1.5 sm:gap-2">
+                                        <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                                         <span>{project.date}</span>
                                     </div>
                                 </div>
 
-                                <div className="mt-4 pt-4 border-t border-stone-200">
-                                    <div className="flex gap-2">
+                                <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-stone-200">
+                                    <div className="flex gap-1.5 sm:gap-2">
                                         {project.images.slice(0, 3).map((img, idx) => (
                                             <button
                                                 key={idx}
                                                 onClick={() => openLightbox(project, idx)}
-                                                className="flex-1 h-16 rounded-md overflow-hidden hover:ring-2 hover:ring-amber-500 transition-all"
+                                                className="flex-1 h-12 sm:h-14 md:h-16 rounded-md overflow-hidden hover:ring-2 hover:ring-amber-500 transition-all active:scale-95"
                                             >
                                                 <Image
                                                     src={img}
@@ -248,31 +222,69 @@ export default function GalleryPage() {
                 </div>
 
                 {filteredProjects.length === 0 && (
-                    <div className="text-center py-12">
-                        <p className="text-stone-500 text-lg">No projects found in this category.</p>
+                    <div className="text-center py-8 sm:py-12">
+                        <p className="text-stone-500 text-sm sm:text-base md:text-lg">No projects found in this category.</p>
                     </div>
                 )}
             </main>
 
-            <footer className="border-t bg-stone-900 text-stone-300 mt-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div className="text-center">
-                        <h3 className="text-2xl font-bold text-white mb-2">Ready to Start Your Project?</h3>
-                        <p className="text-stone-400 mb-6">Let&apos;s create something beautiful together.</p>
-                        <Button size="lg" className="bg-amber-600 hover:bg-amber-700">
-                            Contact Us Today
-                        </Button>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
 
             <Lightbox
                 open={lightboxOpen}
                 close={() => setLightboxOpen(false)}
                 slides={slides}
                 index={photoIndex}
+                plugins={[Zoom, Thumbnails, Fullscreen, Slideshow]}
                 on={{
                     view: ({ index }) => setPhotoIndex(index),
+                }}
+                zoom={{
+                    maxZoomPixelRatio: 3,
+                    zoomInMultiplier: 2,
+                    doubleTapDelay: 300,
+                    doubleClickDelay: 300,
+                    doubleClickMaxStops: 2,
+                    keyboardMoveDistance: 50,
+                    wheelZoomDistanceFactor: 100,
+                    pinchZoomDistanceFactor: 100,
+                    scrollToZoom: true,
+                }}
+                thumbnails={{
+                    position: 'bottom',
+                    width: 120,
+                    height: 80,
+                    border: 2,
+                    borderRadius: 8,
+                    padding: 0,
+                    gap: 12,
+                    imageFit: 'cover',
+                    vignette: true,
+                    showToggle: false,
+                }}
+                slideshow={{
+                    autoplay: false,
+                    delay: 3000,
+                }}
+                animation={{
+                    fade: 250,
+                    swipe: 250,
+                }}
+                carousel={{
+                    finite: false,
+                    preload: 2,
+                    padding: '16px',
+                    spacing: '30%',
+                    imageFit: 'contain',
+                }}
+                render={{
+                    buttonPrev: () => null,
+                    buttonNext: () => null,
+                }}
+                controller={{
+                    closeOnBackdropClick: true,
+                    closeOnPullDown: true,
+                    closeOnPullUp: false,
                 }}
             />
         </div>
